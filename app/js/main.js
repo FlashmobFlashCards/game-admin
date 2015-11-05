@@ -96,9 +96,42 @@ exports['default'] = _backbone2['default'].Router.extend({
   home: function home() {},
 
   registerForm: function registerForm() {
+    var _this = this;
+
     this.render(_react2['default'].createElement(_views.RegisterForm, {
       onCreateUserClick: function () {
-        alert('thanks for registering');
+
+        var fullName = document.querySelector('.name').value;
+        var emailAdd = document.querySelector('.email').value;
+        var userName = document.querySelector('.user').value;
+        var password = document.querySelector('.password').value;
+
+        var request = _jquery2['default'].ajax({
+          url: '',
+          method: 'POST',
+          data: {
+            user: {
+              fullname: fullName,
+              email: emailAdd,
+              username: userName,
+              password: password
+            }
+          }
+        });
+
+        request.save().then(function (data) {
+          _jsCookie2['default'].set('user', data);
+
+          _jquery2['default'].ajaxSetup({
+            headers: {
+              auth_token: data.access_token
+            }
+          });
+          _this.goto('deckgallery');
+        }).fail(function () {
+          alert('something went wrong');
+          _this.goto('');
+        });
       } }));
   }
 

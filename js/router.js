@@ -2,7 +2,7 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import React from 'react';
 import ReactDom from 'react-dom';
-import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 
 import {RegisterForm} from './views';
 import {LoginView} from './views';
@@ -42,7 +42,40 @@ export default Backbone.Router.extend({
   registerForm() {
     this.render(
       <RegisterForm 
-        onCreateUserClick={() => {alert('thanks for registering');}}/>
+        onCreateUserClick={() => {
+
+          let fullName = document.querySelector('.name').value;
+          let emailAdd = document.querySelector('.email').value;
+          let userName = document.querySelector('.user').value;
+          let password = document.querySelector('.password').value;
+
+          let request = $.ajax({
+            url: '',
+            method: 'POST',
+            data: {
+              user: {
+                fullname: fullName,
+                email: emailAdd,
+                username: userName,
+                password: password
+              }
+            }
+          });
+
+          request.save().then((data) => {
+            Cookies.set('user', data);
+
+            $.ajaxSetup({
+              headers: {
+                auth_token: data.access_token
+              }
+            });
+            this.goto('deckgallery');
+          }).fail(() => {
+            alert('something went wrong');
+            this.goto('');
+          });
+        }}/>
     );
   }
 
