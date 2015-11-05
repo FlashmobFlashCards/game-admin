@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 
 export default React.createClass({
 
-  onLoginClick() {
+  onSubmitClick() {
     this.props.onLoginClick();
   },
 
@@ -20,7 +20,6 @@ export default React.createClass({
                 <button onClick={this.onSubmitClick} className='logInput loginBtn'>Log In</button>
                 <checkbox label='Remember Me' checked='false' className='logInput checkbox' />
               </form>
-              <button onClick={this.onLoginClick} className='registerBtn'>Register</button>
             </div>
          <footer>&copy;Iron Games</footer>
       </div>
