@@ -96,11 +96,41 @@ exports['default'] = _backbone2['default'].Router.extend({
   home: function home() {},
 
   userLogin: function userLogin() {
-    this.render(_react2['default'].createElement(_views.LoginView, null));
+    var _this = this;
+
+    this.render(_react2['default'].createElement(_views.LoginView, { onLoginClick: function () {
+        var userName = document.querySelector('.user').value;
+        var password = document.querySelector('.password').value;
+
+        var request = _jquery2['default'].ajax({
+          url: '',
+          method: 'POST',
+          data: {
+            user: {
+              username: userName,
+              password: password
+            }
+          }
+        });
+
+        request.then(function (data) {
+          _jsCookie2['default'].set('user', data);
+
+          _jquery2['default'].ajaxSetup({
+            headers: {
+              auth_token: data.access_token
+            }
+          });
+          _this.goto('deckgallery');
+        }).fail(function () {
+          alert('something went wrong');
+          _this.goto('');
+        });
+      } }));
   },
 
   registerForm: function registerForm() {
-    var _this = this;
+    var _this2 = this;
 
     this.render(_react2['default'].createElement(_views.RegisterForm, {
       onCreateUserClick: function () {
@@ -131,10 +161,10 @@ exports['default'] = _backbone2['default'].Router.extend({
               auth_token: data.access_token
             }
           });
-          _this.goto('deckgallery');
+          _this2.goto('deckgallery');
         }).fail(function () {
           alert('something went wrong');
-          _this.goto('');
+          _this2.goto('');
         });
       } }));
   }
@@ -190,8 +220,8 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 exports['default'] = _react2['default'].createClass({
   displayName: 'login_page',
 
-  onRegisterClick: function onRegisterClick() {
-    this.props.onCreateUserClick();
+  onLoginClick: function onLoginClick() {
+    this.props.onLoginClick();
   },
 
   render: function render() {
@@ -216,7 +246,7 @@ exports['default'] = _react2['default'].createClass({
         ),
         _react2['default'].createElement(
           'button',
-          { onClick: this.onRegisterClick, className: 'registerBtn' },
+          { onClick: this.onLoginClick, className: 'registerBtn' },
           'Register'
         )
       ),
