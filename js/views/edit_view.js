@@ -3,25 +3,32 @@ import ReactDom from 'react-dom';
 
 export default React.createClass({
 
-  onPlayClick() {
-    this.props.onPlayClick();
-  },
+  // Need to be able to choose deck ID from list associated with user ID.
 
-  onAddClick() {
-    this.props.onAddClick();
-  },
+  // Need to be able to edit deck title.
 
-    onEditClick() {
+  // Need to be able to edit question and answer on every card.
+
+  // Create event listeners for editing deck fields
+
+  onEditClick() {
     this.props.onEditClick();
+  },
+
+    onSaveClick() {
+    this.props.onSaveClick();
   },  
 
 
   render() {
     return (
       <div className='wholePage'>
-        <button onClick={this.onPlayClick} className='playBtn'>Play</button>
-        <button onClick={this.onAddClick} className='addBtn'>Add a Deck</button>
-        <button onClick={this.onEditClick} className='edityBtn'>Edit a Deck</button>
+
+      // Create button edit deck
+        <button onClick={this.onEditClick} className='editBtn'>Edit a Deck</button>
+
+      // Create button to save changes
+        <button onClick={this.onSaveClick} className='addBtn'>Save Changes</button>
       </div>
     );
   }
