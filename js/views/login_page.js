@@ -7,6 +7,8 @@ export default React.createClass({
     this.props.onCreateUserClick();
   },
 
+  // test
+
   render() {
     return (
       <div className='wholePage'>
