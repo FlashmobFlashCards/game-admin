@@ -9,6 +9,19 @@ export default React.createClass({
 
   // Need to be able to edit question and answer on every card.
 
+  getInitialState: function() {
+    return {value: ''};
+  },
+
+  handleChange: function(event) {
+    this.setState({value: event.target.value});
+  },
+
+  render: function() {
+    var value = this.state.value;
+    return <input type="text" value={value} onChange={this.handleChange} /;
+  }
+
   // Create event listeners for editing deck fields
 
   onEditClick() {
