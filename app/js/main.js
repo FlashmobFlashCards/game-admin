@@ -160,16 +160,13 @@ var _login_page2 = _interopRequireDefault(_login_page);
 exports['default'] = _react2['default'].createClass({
   displayName: 'home',
 
+  processLoginBox: function processLoginBox() {},
+
   render: function render() {
     return _react2['default'].createElement(
       'div',
       { className: 'container' },
-      _react2['default'].createElement('img', { src: 'images/flashcardlogo.png', className: 'gameLogo' }),
-      _react2['default'].createElement(
-        'div',
-        null,
-        this.props.LoginView
-      )
+      _react2['default'].createElement('img', { src: 'images/flashcardlogo.png', className: 'gameLogo' })
     );
   }
 
