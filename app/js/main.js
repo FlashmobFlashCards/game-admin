@@ -105,13 +105,11 @@ exports['default'] = _backbone2['default'].Router.extend({
         var password = document.querySelector('.password').value;
 
         var request = _jquery2['default'].ajax({
-          url: '',
+          url: 'https://damp-cliffs-8775.herokuapp.com/login',
           method: 'POST',
           data: {
-            user: {
-              username: userName,
-              password: password
-            }
+            username: userName,
+            password: password
           }
         });
 
@@ -123,7 +121,7 @@ exports['default'] = _backbone2['default'].Router.extend({
               auth_token: data.access_token
             }
           });
-          _this.goto('deckgallery');
+          _this.goto('');
         }).fail(function () {
           alert('something went wrong');
           _this.goto('');
@@ -143,19 +141,17 @@ exports['default'] = _backbone2['default'].Router.extend({
         var password = document.querySelector('.password').value;
 
         var request = _jquery2['default'].ajax({
-          url: '',
+          url: 'https://damp-cliffs-8775.herokuapp.com/signup',
           method: 'POST',
           data: {
-            user: {
-              fullname: fullName,
-              email: emailAdd,
-              username: userName,
-              password: password
-            }
+            fullname: fullName,
+            email: emailAdd,
+            username: userName,
+            password: password
           }
         });
 
-        request.save().then(function (data) {
+        request.then(function (data) {
           _jsCookie2['default'].set('user', data);
 
           _jquery2['default'].ajaxSetup({
@@ -163,9 +159,8 @@ exports['default'] = _backbone2['default'].Router.extend({
               auth_token: data.access_token
             }
           });
-          _this2.goto('deckgallery');
-        }).fail(function () {
-          alert('something went wrong');
+
+          alert('user creation successful!');
           _this2.goto('');
         });
       } }));
@@ -255,7 +250,7 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 exports['default'] = _react2['default'].createClass({
   displayName: 'login_page',
 
-  onLoginClick: function onLoginClick() {
+  onSubmitClick: function onSubmitClick() {
     this.props.onLoginClick();
   },
 
@@ -290,11 +285,6 @@ exports['default'] = _react2['default'].createClass({
             'Log In'
           ),
           _react2['default'].createElement('checkbox', { label: 'Remember Me', checked: 'false', className: 'logInput checkbox' })
-        ),
-        _react2['default'].createElement(
-          'button',
-          { onClick: this.onLoginClick, className: 'registerBtn' },
-          'Register'
         )
       ),
       _react2['default'].createElement(
@@ -309,68 +299,69 @@ exports['default'] = _react2['default'].createClass({
 module.exports = exports['default'];
 
 },{"react":168,"react-dom":12}],6:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-exports["default"] = _react2["default"].createClass({
-  displayName: "register",
+exports['default'] = _react2['default'].createClass({
+  displayName: 'register',
 
   createUser: function createUser() {
+    console.log('this is clicked');
     this.props.onCreateUserClick();
   },
 
   render: function render() {
-    return _react2["default"].createElement(
-      "form",
+    return _react2['default'].createElement(
+      'form',
       null,
-      _react2["default"].createElement(
-        "h2",
+      _react2['default'].createElement(
+        'h2',
         null,
-        "Create an Account"
+        'Create an Account'
       ),
-      _react2["default"].createElement(
-        "label",
+      _react2['default'].createElement(
+        'label',
         null,
-        "Full Name: ",
-        _react2["default"].createElement("input", { type: "text", className: "name" })
+        'Full Name: ',
+        _react2['default'].createElement('input', { type: 'text', className: 'name' })
       ),
-      _react2["default"].createElement(
-        "label",
+      _react2['default'].createElement(
+        'label',
         null,
-        "E-mail Address: ",
-        _react2["default"].createElement("input", { type: "text", className: "email" })
+        'E-mail Address: ',
+        _react2['default'].createElement('input', { type: 'text', className: 'email' })
       ),
-      _react2["default"].createElement(
-        "label",
+      _react2['default'].createElement(
+        'label',
         null,
-        "Create Username: ",
-        _react2["default"].createElement("input", { type: "text", className: "user" })
+        'Create Username: ',
+        _react2['default'].createElement('input', { type: 'text', className: 'user' })
       ),
-      _react2["default"].createElement(
-        "label",
+      _react2['default'].createElement(
+        'label',
         null,
-        "Create Password: ",
-        _react2["default"].createElement("input", { type: "password", className: "password" })
+        'Create Password: ',
+        _react2['default'].createElement('input', { type: 'password', className: 'password' })
       ),
-      _react2["default"].createElement(
-        "button",
-        { onSubmit: this.createUser },
-        "Create Account"
+      _react2['default'].createElement(
+        'button',
+        { onClick: this.createUser },
+        'Create Account'
       )
     );
   }
 
 });
-module.exports = exports["default"];
+module.exports = exports['default'];
 
 },{"react":168}],7:[function(require,module,exports){
 (function (global){

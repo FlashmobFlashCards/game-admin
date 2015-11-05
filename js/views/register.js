@@ -3,6 +3,7 @@ import React from 'react';
 export default React.createClass({
 
   createUser() {
+    console.log('this is clicked');
     this.props.onCreateUserClick();
   },
 
@@ -14,7 +15,7 @@ export default React.createClass({
         <label>E-mail Address: <input type="text" className="email"/></label>
         <label>Create Username: <input type="text" className="user"/></label>
         <label>Create Password: <input type="password" className="password"/></label>
-        <button onSubmit={this.createUser}>Create Account</button>
+        <button onClick={this.createUser}>Create Account</button>
       </form>
     );
   }
