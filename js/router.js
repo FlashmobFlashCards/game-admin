@@ -5,6 +5,8 @@ import ReactDom from 'react-dom';
 import Cookie from 'js-cookie';
 
 import {RegisterForm} from './views';
+import {LoginView} from './views';
+import {HomeView} from './views';
 
 export default Backbone.Router.extend({
 
@@ -33,12 +35,15 @@ export default Backbone.Router.extend({
     ReactDom.render(component, this.el);
   },
 
+  home() {
+ 
+  },
+
   registerForm() {
     this.render(
       <RegisterForm 
         onCreateUserClick={() => {alert('thanks for registering');}}/>
     );
   }
-
 
 });

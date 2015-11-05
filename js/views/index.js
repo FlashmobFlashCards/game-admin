@@ -1,5 +1,9 @@
 import RegisterForm from './register';
+import HomeView from './home';
+import LoginView from './login_page';
 
 export {
-	RegisterForm
+	HomeView,
+	RegisterForm,
+	LoginView
 };
