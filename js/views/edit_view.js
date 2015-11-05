@@ -15,7 +15,7 @@ export default React.createClass({
     this.props.onEditClick();
   },
 
-    onSaveClick() {
+  onSaveClick() {
     this.props.onSaveClick();
   },  
 

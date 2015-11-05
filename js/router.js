@@ -37,13 +37,16 @@ export default Backbone.Router.extend({
 
   home() {
     this.render(
-      <HomeView />
+      <HomeView
+      onRegisterClick={() =>this.goto('register')} />
     );
   },
 
   userLogin() {
     this.render(
-      <LoginView onLoginClick={() => {
+      <LoginView 
+
+      onLoginClick={() => {
         let userName = document.querySelector('.user').value;
         let password = document.querySelector('.password').value;
 

@@ -94,13 +94,20 @@ exports['default'] = _backbone2['default'].Router.extend({
   },
 
   home: function home() {
-    this.render(_react2['default'].createElement(_views.HomeView, null));
+    var _this = this;
+
+    this.render(_react2['default'].createElement(_views.HomeView, {
+      onRegisterClick: function () {
+        return _this.goto('register');
+      } }));
   },
 
   userLogin: function userLogin() {
-    var _this = this;
+    var _this2 = this;
 
-    this.render(_react2['default'].createElement(_views.LoginView, { onLoginClick: function () {
+    this.render(_react2['default'].createElement(_views.LoginView, {
+
+      onLoginClick: function () {
         var userName = document.querySelector('.user').value;
         var password = document.querySelector('.password').value;
 
@@ -121,16 +128,16 @@ exports['default'] = _backbone2['default'].Router.extend({
               auth_token: data.access_token
             }
           });
-          _this.goto('');
+          _this2.goto('');
         }).fail(function () {
           alert('something went wrong');
-          _this.goto('');
+          _this2.goto('');
         });
       } }));
   },
 
   registerForm: function registerForm() {
-    var _this2 = this;
+    var _this3 = this;
 
     this.render(_react2['default'].createElement(_views.RegisterForm, {
       onCreateUserClick: function () {
@@ -161,7 +168,7 @@ exports['default'] = _backbone2['default'].Router.extend({
           });
 
           alert('user creation successful!');
-          _this2.goto('');
+          _this3.goto('');
         });
       } }));
   }
@@ -189,13 +196,26 @@ var _login_page2 = _interopRequireDefault(_login_page);
 exports['default'] = _react2['default'].createClass({
   displayName: 'home',
 
-  processLoginBox: function processLoginBox() {},
+  onGoToRegister: function onGoToRegister() {
+    this.props.onRegisterClick();
+  },
 
   render: function render() {
     return _react2['default'].createElement(
       'div',
       { className: 'container' },
-      _react2['default'].createElement('img', { src: 'images/flashcardlogo.png', className: 'gameLogo' })
+      _react2['default'].createElement('img', { src: 'images/flashcardlogo.png', className: 'gameLogo' }),
+      _react2['default'].createElement(_login_page2['default'], null),
+      _react2['default'].createElement(
+        'button',
+        { onClick: this.onGoToRegister },
+        'Register'
+      ),
+      _react2['default'].createElement(
+        'footer',
+        null,
+        '©Iron Games'
+      )
     );
   }
 
@@ -254,6 +274,7 @@ exports['default'] = _react2['default'].createClass({
   // test
 
   render: function render() {
+    console.log(this);
     return _react2['default'].createElement(
       'div',
       { className: 'wholePage' },
@@ -283,11 +304,6 @@ exports['default'] = _react2['default'].createClass({
           ),
           _react2['default'].createElement('checkbox', { label: 'Remember Me', checked: 'false', className: 'logInput checkbox' })
         )
-      ),
-      _react2['default'].createElement(
-        'footer',
-        null,
-        '©Iron Games'
       )
     );
   }

@@ -3,6 +3,7 @@ import ReactDom from 'react-dom';
 
 export default React.createClass({
 
+
   onSubmitClick() {
     this.props.onLoginClick();
   },
@@ -10,6 +11,7 @@ export default React.createClass({
   // test
 
   render() {
+    console.log(this);
     return (
       <div className='wholePage'>
          <header className='logo'></header>
@@ -21,7 +23,6 @@ export default React.createClass({
                 <checkbox label='Remember Me' checked='false' className='logInput checkbox' />
               </form>
             </div>
-         <footer>&copy;Iron Games</footer>
       </div>
     );
   }
