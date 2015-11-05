@@ -48,13 +48,11 @@ export default Backbone.Router.extend({
         let password = document.querySelector('.password').value;
 
         let request = $.ajax({
-          url: '',
+          url: 'https://damp-cliffs-8775.herokuapp.com/login',
           method: 'POST',
           data: {
-            user: {
-              username: userName,
-              password: password
-            }
+            username: userName,
+            password: password
           }
         });
 
@@ -66,7 +64,7 @@ export default Backbone.Router.extend({
               auth_token: data.access_token
             }
           });
-          this.goto('deckgallery');
+          this.goto('');
         }).fail(() => {
           alert('something went wrong');
           this.goto('');
@@ -86,19 +84,17 @@ export default Backbone.Router.extend({
           let password = document.querySelector('.password').value;
 
           let request = $.ajax({
-            url: '',
+            url: 'https://damp-cliffs-8775.herokuapp.com/signup',
             method: 'POST',
             data: {
-              user: {
-                fullname: fullName,
-                email: emailAdd,
-                username: userName,
-                password: password
-              }
+              fullname: fullName,
+              email: emailAdd,
+              username: userName,
+              password: password
             }
           });
 
-          request.save().then((data) => {
+          request.then((data) => {
             Cookies.set('user', data);
 
             $.ajaxSetup({
@@ -106,9 +102,8 @@ export default Backbone.Router.extend({
                 auth_token: data.access_token
               }
             });
-            this.goto('deckgallery');
-          }).fail(() => {
-            alert('something went wrong');
+
+            alert('user creation successful!');
             this.goto('');
           });
         }}/>
