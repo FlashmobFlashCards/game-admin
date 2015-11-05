@@ -43,7 +43,35 @@ export default Backbone.Router.extend({
 
   userLogin() {
     this.render(
-      <LoginView/>
+      <LoginView onLoginClick={() => {
+        let userName = document.querySelector('.user').value;
+        let password = document.querySelector('.password').value;
+
+        let request = $.ajax({
+          url: '',
+          method: 'POST',
+          data: {
+            user: {
+              username: userName,
+              password: password
+            }
+          }
+        });
+
+        request.then((data) => {
+          Cookies.set('user', data);
+
+          $.ajaxSetup({
+            headers: {
+              auth_token: data.access_token
+            }
+          });
+          this.goto('deckgallery');
+        }).fail(() => {
+          alert('something went wrong');
+          this.goto('');
+        });
+      }}/>
     );
   },
 
