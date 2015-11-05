@@ -13,15 +13,30 @@ export default React.createClass({
 
   onEditClick() {
     this.props.onEditClick();
-  },  
+  },
 
+  processDecks(data) {
+    return (
+      <li key={data.deck_id}>{data.title}</li>
+    );
+  }, 
 
   render() {
     return (
-      <div className='wholePage'>
-        <button onClick={this.onPlayClick} className='playBtn'>Play</button>
-        <button onClick={this.onAddClick} className='addBtn'>Add a Deck</button>
-        <button onClick={this.onEditClick} className='edityBtn'>Edit a Deck</button>
+      <div className='userHome'>
+        <header>
+          <h2>Welcome</h2>
+          <div className="userScore"></div>
+          <button className="logOut">Log Out</button>
+          <button onClick={this.onEditClick} className='editBtn'>Edit a Deck</button>
+          <button onClick={this.onAddClick} className='addBtn'>Add a Deck</button>
+          <hr/>
+        </header>
+        <main>
+          <div className="galleryWrapper">
+            <ul className="gallery">{this.props.decks.map(this.processDecks)}</ul>
+          </div>
+        </main>
       </div>
     );
   }

@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 import {RegisterForm} from './views';
 import {LoginView} from './views';
 import {HomeView} from './views';
+import {UserHomeView} from './views';
 
 export default Backbone.Router.extend({
 
@@ -99,7 +100,7 @@ export default Backbone.Router.extend({
 
           request.then((data) => {
             Cookies.set('user', data);
-
+            console.log(data.toJSON());
             $.ajaxSetup({
               headers: {
                 auth_token: data.access_token
@@ -110,6 +111,12 @@ export default Backbone.Router.extend({
             this.goto('');
           });
         }}/>
+    );
+  },
+
+  viewDecks() {
+    this.render(
+      <UserHomeView/>
     );
   }
 
