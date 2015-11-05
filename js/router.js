@@ -36,7 +36,9 @@ export default Backbone.Router.extend({
   },
 
   home() {
- 
+    this.render(
+      <HomeView />
+    );
   },
 
   userLogin() {

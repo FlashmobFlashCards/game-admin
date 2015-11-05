@@ -93,7 +93,9 @@ exports['default'] = _backbone2['default'].Router.extend({
     _reactDom2['default'].render(component, this.el);
   },
 
-  home: function home() {},
+  home: function home() {
+    this.render(_react2['default'].createElement(_views.HomeView, null));
+  },
 
   userLogin: function userLogin() {
     this.render(_react2['default'].createElement(_views.LoginView, null));
@@ -143,9 +145,42 @@ exports['default'] = _backbone2['default'].Router.extend({
 module.exports = exports['default'];
 
 },{"./views":4,"backbone":7,"jquery":9,"js-cookie":10,"react":168,"react-dom":12}],3:[function(require,module,exports){
-"use strict";
+'use strict';
 
-},{}],4:[function(require,module,exports){
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _login_page = require('./login_page');
+
+var _login_page2 = _interopRequireDefault(_login_page);
+
+exports['default'] = _react2['default'].createClass({
+  displayName: 'home',
+
+  render: function render() {
+    return _react2['default'].createElement(
+      'div',
+      { className: 'container' },
+      _react2['default'].createElement('img', { src: 'images/flashcardlogo.png', className: 'gameLogo' }),
+      _react2['default'].createElement(
+        'div',
+        null,
+        this.props.LoginView
+      )
+    );
+  }
+
+});
+module.exports = exports['default'];
+
+},{"./login_page":5,"react":168}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -194,6 +229,8 @@ exports['default'] = _react2['default'].createClass({
     this.props.onCreateUserClick();
   },
 
+  // test
+
   render: function render() {
     return _react2['default'].createElement(
       'div',
@@ -205,8 +242,18 @@ exports['default'] = _react2['default'].createClass({
         _react2['default'].createElement(
           'form',
           { className: 'form' },
-          _react2['default'].createElement('input', { type: 'text', placeholder: 'Username', className: 'logInput user' }),
-          _react2['default'].createElement('input', { type: 'text', placeholder: 'Password', className: 'logInput password' }),
+          _react2['default'].createElement(
+            'label',
+            null,
+            'Username',
+            _react2['default'].createElement('input', { type: 'text', placeholder: 'Username', className: 'logInput user' })
+          ),
+          _react2['default'].createElement(
+            'label',
+            null,
+            ' Password',
+            _react2['default'].createElement('input', { type: 'text', placeholder: 'Must be 6 alphanumeric characters', className: 'logInput password' })
+          ),
           _react2['default'].createElement(
             'button',
             { onClick: this.onSubmitClick, className: 'logInput loginBtn' },
