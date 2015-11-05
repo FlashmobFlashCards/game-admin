@@ -39,6 +39,12 @@ export default Backbone.Router.extend({
  
   },
 
+  userLogin() {
+    this.render(
+      <LoginView/>
+    );
+  },
+
   registerForm() {
     this.render(
       <RegisterForm 

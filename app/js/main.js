@@ -95,6 +95,10 @@ exports['default'] = _backbone2['default'].Router.extend({
 
   home: function home() {},
 
+  userLogin: function userLogin() {
+    this.render(_react2['default'].createElement(_views.LoginView, null));
+  },
+
   registerForm: function registerForm() {
     var _this = this;
 
