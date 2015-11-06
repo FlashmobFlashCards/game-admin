@@ -4,6 +4,8 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import Cookies from 'js-cookie';
 
+import {DeckCollection} from './resources';
+
 import {RegisterForm} from './views';
 import {LoginView} from './views';
 import {HomeView} from './views';
@@ -21,6 +23,7 @@ export default Backbone.Router.extend({
 
   initialize(appElement) {
     this.el = appElement;
+    this.deckcollect = new DeckCollection();
   },
 
   start() {
@@ -115,9 +118,13 @@ export default Backbone.Router.extend({
   },
 
   viewDecks() {
-    this.render(
-      <UserHomeView/>
-    );
+    this.deckcollect.fetch().then(() => {
+      this.render(
+        <UserHomeView 
+          decks={this.deckcollect.toJSON()}/>
+      );
+    });
   }
+      
 
 });
