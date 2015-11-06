@@ -408,13 +408,17 @@ exports['default'] = _backbone2['default'].Router.extend({
         var cardQuestion = document.querySelector('.questionField').value;
         var cardAnswer = document.querySelector('.answerField').value;
 
-        var newCard = new _resources.CardModel({
-          title: cardTitle,
-          question: cardQuestion,
-          answer: cardAnswer
+        var newCard = _jquery2['default'].ajax({
+          url: 'https://damp-cliffs-8775.herokuapp.com/card',
+          method: 'POST',
+          data: {
+            title: cardTitle,
+            question: cardQuestion,
+            answer: cardAnswer
+          }
         });
 
-        newCard.save().then(function () {
+        newCard.then(function () {
           return _this7.goto('deckgallery');
         });
       } }));

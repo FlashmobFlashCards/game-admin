@@ -210,14 +210,17 @@ export default Backbone.Router.extend({
         let cardQuestion = document.querySelector('.questionField').value;
         let cardAnswer = document.querySelector('.answerField').value;
 
-        
-        let newCard = new CardModel({
-          title: cardTitle,
-          question: cardQuestion,
-          answer: cardAnswer
+        let newCard = $.ajax({
+          url: 'https://damp-cliffs-8775.herokuapp.com/card',
+          method: 'POST',
+          data: {
+            title: cardTitle,
+            question: cardQuestion,
+            answer: cardAnswer
+          }
         });
-
-        newCard.save().then(()=>this.goto('deckgallery'));
+    
+        newCard.then(()=>this.goto('deckgallery'));
 
       }}/>
     );
