@@ -8,7 +8,7 @@ export default React.createClass({
   // EDIT QUESTION AND/OR ANSWER ON CARD  
   // DELETE CARD
   // ADD CARD
-
+  
 
   // GET DECK ID, TITLE, CARD ID, QUESTION, AND ANSWER.
 
@@ -54,6 +54,7 @@ export default React.createClass({
       this.state.answer
       );
   },  
+>>>>>>> jef
 
   // GO BACK TO EDIT DECK VIEW
 
@@ -67,6 +68,7 @@ export default React.createClass({
     this.props.onBackClick(); // Does this need to be an individual onBackClick?
   },
 
+<<<<<<< HEAD
   // render() {
   //   return (
 

@@ -3,6 +3,7 @@ import ReactDom from 'react-dom';
 
 export default React.createClass({
 
+
   // REQUIREMENTS
   // DISPLAY ALL DECK TITLES (DECK ID DOESN'T NEEC TO BE DISPLAYED)
   // CLICK ON DECK TO ACCESS EDIT_CARD VIEW
@@ -28,6 +29,7 @@ export default React.createClass({
   goEditCardView() {
     this.props.onEditClick();
   },
+
 
   // GO BACK TO DECK GALLERY FUNCTION
 
