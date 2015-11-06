@@ -1,21 +1,27 @@
 import React from 'react';
-import LoginView from './login_page';
+import Backbone from 'backbone';
+import $ from 'jquery';
+import Cookies from 'js-cookie';
 
+import LoginView from './login_page';
 
 
 export default React.createClass({
 
   onGoToRegister() {
     this.props.onRegisterClick();
+  }, 
+
+  onLoginClick() {
+    this.props.onLogin();
   },
-  
 
   render() {
     return (
       <div> 
         <img src='images/flashcardlogo.png' className='gameLogo' />
         <div className='container'>
-          <LoginView />
+         <LoginView onLoginClick={this.onLoginClick}/> 
           <div className='registerLine'>
             <span className='signUp'>Don&#39;t have an account?</span>
             <button onClick={this.onGoToRegister} className='registerBtn'>Create One</button>

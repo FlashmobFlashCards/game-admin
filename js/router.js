@@ -48,8 +48,9 @@ export default Backbone.Router.extend({
 
   home() {
     this.render(
-      <HomeView
-      onRegisterClick={() =>this.goto('register')} />
+      <HomeView 
+      onRegisterClick={() =>this.goto('register')}
+      onLogin={() => this.onLogin()} />
     );
   },
 
@@ -58,9 +59,8 @@ export default Backbone.Router.extend({
       <LoginView 
 
       onLoginClick={() => {
-        let userName = document.querySelector('.user').value;
-        let password = document.querySelector('.password').value;
-
+        let userName = document.querySelector('#loginuser').value;
+        let password = document.querySelector('#userpassword').value;
         let request = $.ajax({
           url: 'https://damp-cliffs-8775.herokuapp.com/login',
           method: 'POST',
@@ -78,13 +78,42 @@ export default Backbone.Router.extend({
               auth_token: data.access_token
             }
           });
-          this.goto('');
+          console.log('logging in');
+          this.goto('deckgallery');
         }).fail(() => {
           alert('something went wrong');
           this.goto('');
         });
       }}/>
     );
+  },
+
+  onLogin() {
+    let userName = document.querySelector('#loginuser').value;
+    let password = document.querySelector('#userpassword').value;
+    let request = $.ajax({
+      url: 'https://damp-cliffs-8775.herokuapp.com/login',
+      method: 'POST',
+      data: {
+        username: userName,
+        password: password
+      }
+    });
+
+    request.then((data) => {
+      Cookies.set('user', data);
+
+      $.ajaxSetup({
+        headers: {
+          auth_token: data.access_token
+        }
+      });
+      console.log('logging in');
+      this.goto('deckgallery');
+    }).fail(() => {
+      alert('something went wrong');
+      this.goto('');
+    });
   },
 
   registerForm() {
@@ -110,7 +139,7 @@ export default Backbone.Router.extend({
 
           request.then((data) => {
             Cookies.set('user', data);
-            console.log(data.toJSON());
+            console.log(data);
             $.ajaxSetup({
               headers: {
                 auth_token: data.access_token
@@ -118,7 +147,7 @@ export default Backbone.Router.extend({
             });
 
             alert('user creation successful!');
-            this.goto('');
+            this.goto('deckgallery');
           });
         }}/>
     );

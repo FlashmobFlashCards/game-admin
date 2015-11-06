@@ -3,8 +3,8 @@ import CardModel from './card_model';
 
 export default Backbone.Collection.extend ({
 
-    url: 'https://damp-cliffs-8775.herokuapp.com/deck/:deck_id/card',
+  url: 'https://damp-cliffs-8775.herokuapp.com/deck/:deck_id/card',
 
-    model: CardModel
+  model: CardModel
 
 });
