@@ -221,6 +221,22 @@ exports['default'] = _backbone2['default'].Router.extend({
     return this;
   },
 
+  setHeaders: function setHeaders() {
+    var user = _jsCookie2['default'].get('user');
+    console.log(user);
+    if (user) {
+      var auth = JSON.parse(user).user.access_token;
+      console.log(auth);
+      _jquery2['default'].ajaxSetup({
+        headers: {
+          'Access-Token': auth
+        }
+      });
+    } else {
+      this.goto('');
+    }
+  },
+
   goto: function goto(route) {
     this.navigate(route, { trigger: true });
   },
@@ -261,11 +277,8 @@ exports['default'] = _backbone2['default'].Router.extend({
         request.then(function (data) {
           _jsCookie2['default'].set('user', data);
 
-          _jquery2['default'].ajaxSetup({
-            headers: {
-              auth_token: data.access_token
-            }
-          });
+          _this2.setHeaders();
+
           console.log('logging in');
           _this2.goto('deckgallery');
         }).fail(function () {
@@ -292,11 +305,7 @@ exports['default'] = _backbone2['default'].Router.extend({
     request.then(function (data) {
       _jsCookie2['default'].set('user', data);
 
-      _jquery2['default'].ajaxSetup({
-        headers: {
-          auth_token: data.access_token
-        }
-      });
+      _this3.setHeaders();
       console.log('logging in');
       _this3.goto('deckgallery');
     }).fail(function () {
@@ -330,11 +339,7 @@ exports['default'] = _backbone2['default'].Router.extend({
         request.then(function (data) {
           _jsCookie2['default'].set('user', data);
           console.log(data);
-          _jquery2['default'].ajaxSetup({
-            headers: {
-              auth_token: data.access_token
-            }
-          });
+          _this4.setHeaders();
 
           alert('user creation successful!');
           _this4.goto('deckgallery');
@@ -378,6 +383,7 @@ exports['default'] = _backbone2['default'].Router.extend({
   newDeck: function newDeck() {
     var _this6 = this;
 
+    this.setHeaders();
     this.render(_react2['default'].createElement(_views.CreateDeck, {
       onSubmitNewDeck: function () {
         console.log('submitting?');
@@ -402,6 +408,7 @@ exports['default'] = _backbone2['default'].Router.extend({
   newCard: function newCard() {
     var _this7 = this;
 
+    this.setHeaders();
     this.render(_react2['default'].createElement(_views.CreateCard, {
       onSubmitNewCard: function () {
         var cardTitle = document.querySelector('.titleField').value;
@@ -490,7 +497,8 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 exports['default'] = _react2['default'].createClass({
   displayName: 'create_deck',
 
-  createDeckSubmit: function createDeckSubmit() {
+  createDeckSubmit: function createDeckSubmit(event) {
+    event.preventDefault();
     this.props.onSubmitNewDeck();
   },
 
@@ -552,7 +560,7 @@ exports['default'] = _react2['default'].createClass({
     console.log(data);
     return _react2['default'].createElement(
       'li',
-      { key: data.id },
+      { key: data.user_id },
       data.title
     );
   },

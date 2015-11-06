@@ -4,38 +4,38 @@ import ReactDom from 'react-dom';
 export default React.createClass({
 
 
-  // REQUIREMENTS
-  // DISPLAY ALL DECK TITLES (DECK ID DOESN'T NEEC TO BE DISPLAYED)
-  // CLICK ON DECK TO ACCESS EDIT_CARD VIEW
+//   // REQUIREMENTS
+//   // DISPLAY ALL DECK TITLES (DECK ID DOESN'T NEEC TO BE DISPLAYED)
+//   // CLICK ON DECK TO ACCESS EDIT_CARD VIEW
 
 
-  // GET DECK ID, TITLE, CARD ID, QUESTION, AND ANSWER.
-  getInitialState: function() {
-    return ({  // Is ( necessary?
-      title: this.props.stored.title, // Do we need to include stored?
-    }); // Is ) necessary?
-  },
+//   // GET DECK ID, TITLE, CARD ID, QUESTION, AND ANSWER.
+//   getInitialState: function() {
+//     return ({  // Is ( necessary?
+//       title: this.props.stored.title, // Do we need to include stored?
+//     }); // Is ) necessary?
+//   },
 
-  // UPDATE TITLE FUNCTION
+//   // UPDATE TITLE FUNCTION
 
-  updateTitle(event) {
-    let newTitle = event.currentTarget.value;
+//   updateTitle(event) {
+//     let newTitle = event.currentTarget.value;
 
-    this.setState({answer: newTitle});
-  },  
+//     this.setState({answer: newTitle});
+//   },  
 
-  // GO BACK TO EDIT DECK VIEW FUNCTION
+//   // GO BACK TO EDIT DECK VIEW FUNCTION
 
-  goEditCardView() {
-    this.props.onEditClick();
-  },
+//   goEditCardView() {
+//     this.props.onEditClick();
+//   },
 
 
-  // GO BACK TO DECK GALLERY FUNCTION
+//   // GO BACK TO DECK GALLERY FUNCTION
 
-  goDeckGallery() {
-    this.props.onBackClick(); 
-  },
+//   goDeckGallery() {
+//     this.props.onBackClick(); 
+//   },
 
   render() {
     return (
@@ -76,5 +76,6 @@ export default React.createClass({
     );
   }
 });
+
 
 

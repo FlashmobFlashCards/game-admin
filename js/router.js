@@ -39,6 +39,22 @@ export default Backbone.Router.extend({
     return this; 
   },
 
+  setHeaders() {
+    let user = Cookies.get('user');
+    console.log(user);
+    if (user) {
+      let auth = JSON.parse(user).user.access_token;
+      console.log(auth);
+      $.ajaxSetup({
+        headers: {
+          'Access-Token': auth
+        }
+      });
+    } else {
+      this.goto('');
+    }
+  },
+
   goto(route) {
     this.navigate(route, {trigger:true});
   },
@@ -74,11 +90,8 @@ export default Backbone.Router.extend({
         request.then((data) => {
           Cookies.set('user', data);
 
-          $.ajaxSetup({
-            headers: {
-              auth_token: data.access_token
-            }
-          });
+          this.setHeaders();
+
           console.log('logging in');
           this.goto('deckgallery');
         }).fail(() => {
@@ -104,11 +117,7 @@ export default Backbone.Router.extend({
     request.then((data) => {
       Cookies.set('user', data);
 
-      $.ajaxSetup({
-        headers: {
-          auth_token: data.access_token
-        }
-      });
+      this.setHeaders();
       console.log('logging in');
       this.goto('deckgallery');
     }).fail(() => {
@@ -141,11 +150,7 @@ export default Backbone.Router.extend({
           request.then((data) => {
             Cookies.set('user', data);
             console.log(data);
-            $.ajaxSetup({
-              headers: {
-                auth_token: data.access_token
-              }
-            });
+            this.setHeaders();
 
             alert('user creation successful!');
             this.goto('deckgallery');
@@ -180,6 +185,7 @@ export default Backbone.Router.extend({
   },
 
   newDeck() {
+    this.setHeaders();
     this.render(
       <CreateDeck
       onSubmitNewDeck={()=>{
@@ -203,6 +209,7 @@ export default Backbone.Router.extend({
   },
 
   newCard() {
+    this.setHeaders();
     this.render(
       <CreateCard
       onSubmitNewCard={()=>{
