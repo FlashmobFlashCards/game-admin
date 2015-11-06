@@ -13,6 +13,7 @@ import {RegisterForm} from './views';
 import {LoginView} from './views';
 import {HomeView} from './views';
 import {CreateCard} from './views';
+import {CreateDeck} from './views';
 import {UserHomeView} from './views';
 
 export default Backbone.Router.extend({
@@ -180,17 +181,22 @@ export default Backbone.Router.extend({
 
   newDeck() {
     this.render(
-      <createdeck
+      <CreateDeck
       onSubmitNewDeck={()=>{
+        console.log('submitting?');
         let deckTitle = document.querySelector('.deckTitleField').value;
         let deckDescription = document.querySelector('.deckDescripField').value;
 
-        let newDeck = new DeckModel({
-          title: deckTitle,
-          description: deckDescription
+        let newDeck = $.ajax({
+          url: 'https://damp-cliffs-8775.herokuapp.com/deck',
+          method: 'POST',
+          data: {
+            title: deckTitle,
+            description: deckDescription
+          }
         });
 
-        newDeck.save().then(()=>this.goto('deckgallery'));
+        newDeck.then(()=>this.goto('deckgallery'));
 
       }}/>
     );
@@ -204,6 +210,7 @@ export default Backbone.Router.extend({
         let cardQuestion = document.querySelector('.questionField').value;
         let cardAnswer = document.querySelector('.answerField').value;
 
+        
         let newCard = new CardModel({
           title: cardTitle,
           question: cardQuestion,
