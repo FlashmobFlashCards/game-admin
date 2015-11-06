@@ -17,8 +17,9 @@ export default Backbone.Router.extend({
     "" : "home",
     "register" : "registerForm",
     "login" : "userLogin",
+    "logout" : "logout",
     "deckgallery" : "viewDecks",
-    "flashgame" : "playGame"
+    "flashgame" : "playGame",
   },
 
   initialize(appElement) {
@@ -117,10 +118,26 @@ export default Backbone.Router.extend({
     );
   },
 
+  logout() {
+    Cookies.remove('user');
+
+    $.ajaxSetup({
+      headers: {
+        auth_token: null
+      }
+    });
+
+    this.goto('');
+  },
+
   viewDecks() {
     this.deckcollect.fetch().then(() => {
       this.render(
         <UserHomeView 
+          onLogoutClick={() => this.goto('logout')}
+          onPlayClick={() => console.log('hello')}
+          onAddClick={() => console.log('hello')}
+          onEditClick={() => console.log('hello')}
           decks={this.deckcollect.toJSON()}/>
       );
     });

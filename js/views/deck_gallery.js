@@ -15,6 +15,10 @@ export default React.createClass({
     this.props.onEditClick();
   },
 
+  onLogout() {
+    this.props.onLogoutClick();
+  },
+
   processDecks(data) {
     return (
       <li key={data.deck_id}>{data.title}</li>
@@ -27,7 +31,7 @@ export default React.createClass({
         <header>
           <h2>Welcome</h2>
           <div className="userScore"></div>
-          <button className="logOut">Log Out</button>
+          <button onClick={this.onLogout}>Log Out</button>
           <button onClick={this.onEditClick} className='editBtn'>Edit a Deck</button>
           <button onClick={this.onAddClick} className='addBtn'>Add a Deck</button>
           <hr/>

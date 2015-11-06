@@ -146,6 +146,7 @@ exports['default'] = _backbone2['default'].Router.extend({
     "": "home",
     "register": "registerForm",
     "login": "userLogin",
+    "logout": "logout",
     "deckgallery": "viewDecks",
     "flashgame": "playGame"
   },
@@ -248,11 +249,35 @@ exports['default'] = _backbone2['default'].Router.extend({
       } }));
   },
 
+  logout: function logout() {
+    _jsCookie2['default'].remove('user');
+
+    _jquery2['default'].ajaxSetup({
+      headers: {
+        auth_token: null
+      }
+    });
+
+    this.goto('');
+  },
+
   viewDecks: function viewDecks() {
     var _this4 = this;
 
     this.deckcollect.fetch().then(function () {
       _this4.render(_react2['default'].createElement(_views.UserHomeView, {
+        onLogoutClick: function () {
+          return _this4.goto('logout');
+        },
+        onPlayClick: function () {
+          return console.log('hello');
+        },
+        onAddClick: function () {
+          return console.log('hello');
+        },
+        onEditClick: function () {
+          return console.log('hello');
+        },
         decks: _this4.deckcollect.toJSON() }));
     });
   }
@@ -292,6 +317,10 @@ exports['default'] = _react2['default'].createClass({
     this.props.onEditClick();
   },
 
+  onLogout: function onLogout() {
+    this.props.onLogoutClick();
+  },
+
   processDecks: function processDecks(data) {
     return _react2['default'].createElement(
       'li',
@@ -315,7 +344,7 @@ exports['default'] = _react2['default'].createClass({
         _react2['default'].createElement('div', { className: 'userScore' }),
         _react2['default'].createElement(
           'button',
-          { className: 'logOut' },
+          { onClick: this.onLogout },
           'Log Out'
         ),
         _react2['default'].createElement(
