@@ -6,6 +6,8 @@ import Cookies from 'js-cookie';
 
 import {DeckCollection} from './resources';
 import {DeckModel} from './resources';
+import {CardModel} from './resources';
+import {CardCollection} from './resources';
 
 import {RegisterForm} from './views';
 import {LoginView} from './views';
@@ -149,7 +151,21 @@ export default Backbone.Router.extend({
 
   newCard() {
     this.render(
-      <CreateCard/>
+      <CreateCard
+      onSubmitNewCard={()=>{
+        let cardTitle = document.querySelector('.titleField').value;
+        let cardQuestion = document.querySelector('.questionField').value;
+        let cardAnswer = document.querySelector('.answerField').value;
+
+        let newCard = new CardModel({
+          title: cardTitle,
+          question: cardQuestion,
+          answer: cardAnswer
+        });
+
+        newCard.save().then(()=>this.goto('deckgallery'));
+
+      }}/>
     );
   }
       

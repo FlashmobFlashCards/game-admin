@@ -3,6 +3,10 @@ import ReactDom from 'react-dom';
 
 export default React.createClass({
 
+  createCardSubmit() {
+    this.props.onSubmitNewCard();
+  },
+
   render() {
     console.log(this);
     return (
