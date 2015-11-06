@@ -4,10 +4,16 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import Cookies from 'js-cookie';
 
+import {DeckCollection} from './resources';
+import {DeckModel} from './resources';
+import {CardModel} from './resources';
+import {CardCollection} from './resources';
+
 import {RegisterForm} from './views';
 import {LoginView} from './views';
 import {HomeView} from './views';
 import {CreateCard} from './views';
+import {UserHomeView} from './views';
 
 export default Backbone.Router.extend({
 
@@ -15,12 +21,16 @@ export default Backbone.Router.extend({
     "" : "home",
     "register" : "registerForm",
     "login" : "userLogin",
+    "logout" : "logout",
     "deckgallery" : "viewDecks",
+    "createdeck" : "newDeck",
+    "createcard" : "newCard",
     "flashgame" : "playGame"
   },
 
   initialize(appElement) {
     this.el = appElement;
+    this.deckcollect = new DeckCollection();
   },
 
   start() {
@@ -100,7 +110,7 @@ export default Backbone.Router.extend({
 
           request.then((data) => {
             Cookies.set('user', data);
-
+            console.log(data.toJSON());
             $.ajaxSetup({
               headers: {
                 auth_token: data.access_token
@@ -113,5 +123,51 @@ export default Backbone.Router.extend({
         }}/>
     );
   },
+
+  logout() {
+    Cookies.remove('user');
+
+    $.ajaxSetup({
+      headers: {
+        auth_token: null
+      }
+    });
+
+    this.goto('');
+  },
+
+  viewDecks() {
+    this.deckcollect.fetch().then(() => {
+      this.render(
+        <UserHomeView 
+          onLogoutClick={() => this.goto('logout')}
+          onPlayClick={() => this.goto('flashgame')}
+          onAddClick={() => this.goto('createdeck')}
+          onEditClick={() => console.log('hello')}
+          decks={this.deckcollect.toJSON()}/>
+      );
+    });
+  },
+
+  newCard() {
+    this.render(
+      <CreateCard
+      onSubmitNewCard={()=>{
+        let cardTitle = document.querySelector('.titleField').value;
+        let cardQuestion = document.querySelector('.questionField').value;
+        let cardAnswer = document.querySelector('.answerField').value;
+
+        let newCard = new CardModel({
+          title: cardTitle,
+          question: cardQuestion,
+          answer: cardAnswer
+        });
+
+        newCard.save().then(()=>this.goto('deckgallery'));
+
+      }}/>
+    );
+  }
+      
 
 });

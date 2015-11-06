@@ -14,7 +14,7 @@ export default React.createClass({
       <div className='loginBox'>
         <form className='form'>
           <input type='text' placeholder='Username' className='logInput inputField user' />
-          <input type='text' placeholder='Must be 6 alphanumeric characters' className='logInput inputField password' />
+          <input type='text' placeholder='Password' className='logInput inputField password' />
           <button onClick={this.onSubmitClick} className='logInput loginBtn'>Log In</button>
           <checkbox label='Remember Me' checked='false' className='logInput checkbox' />
         </form>
