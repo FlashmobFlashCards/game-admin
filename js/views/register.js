@@ -9,14 +9,16 @@ export default React.createClass({
 
   render() {
     return(
-        <form>
+      <div className='regPage'>
+        <form className='regForm'>
           <h2>Create an Account</h2>
-          <label>Full Name: <input type="text" className="name"/></label>
-          <label>E-mail Address: <input type="text" className="email"/></label>
-          <label>Create Username: <input type="text" className="user"/></label>
-          <label>Create Password: <input type="password" className="password"/></label>
-          <button onClick={this.createUser}>Create Account</button>
+            <input type="text" placeholder='Full Name' className="name regField"/>
+            <input type="text" placeholder='Email Address' className="email regField"/>
+            <input type="text" placeholder='Create Username' className="user regField"/>
+            <input type="password" placeholder='Create Password' className="password regField"/>
+            <button onClick={this.createUser} className='regBtn regField'>Create Account</button>
         </form>
+        </div>
     );
   }
 

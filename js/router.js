@@ -81,7 +81,7 @@ export default Backbone.Router.extend({
           this.goto('');
         }).fail(() => {
           alert('something went wrong');
-          this.goto('');
+          this.goto('deckgallery');
         });
       }}/>
     );
@@ -147,6 +147,24 @@ export default Backbone.Router.extend({
           decks={this.deckcollect.toJSON()}/>
       );
     });
+  },
+
+  newDeck() {
+    this.render(
+      <createdeck
+      onSubmitNewDeck={()=>{
+        let deckTitle = document.querySelector('.deckTitleField').value;
+        let deckDescription = document.querySelector('.deckDescripField').value;
+
+        let newDeck = new DeckModel({
+          title: deckTitle,
+          description: deckDescription
+        });
+
+        newDeck.save().then(()=>this.goto('deckgallery'));
+
+      }}/>
+    );
   },
 
   newCard() {
