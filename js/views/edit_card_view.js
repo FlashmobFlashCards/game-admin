@@ -54,7 +54,6 @@ export default React.createClass({
       this.state.answer
       );
   },  
->>>>>>> jef
 
   // GO BACK TO EDIT DECK VIEW
 
@@ -68,15 +67,14 @@ export default React.createClass({
     this.props.onBackClick(); // Does this need to be an individual onBackClick?
   },
 
-<<<<<<< HEAD
-  // render() {
-  //   return (
+  render() {
+    return (
 
   // BUTTONS    
-  <div className="btns">
-    <button onClick{() => this.goEditDeckView()}>Edit Deck</button> // Do we need a fa fa icon for this?
-    <button onClick{() => this.goDeckGalleryView()}>Deck Gallery</button> // Do we need a fa fa icon for this?
-   // Do we redirect to refreshed edit_card_view.js? <button onClick{() => this.go?View()}>Save Changes</button> // Do we need a fa fa icon for this?
+  // <div className="btns">
+  //   <button onClick={() => this.goEditDeckView()}>Edit Deck</button> 
+  //   <button onClick={() => this.goDeckGalleryView()}>Deck Gallery</button> 
+  // Do we redirect to refreshed edit_card_view.js? <button onClick{() => this.go?View()}>Save Changes</button> // Do we need a fa fa icon for this?
   // </div>
   <div className="edit-card">
     <h2>Edit Cards</h2>
