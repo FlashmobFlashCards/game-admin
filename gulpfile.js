@@ -123,7 +123,7 @@ gulp.task('server', ['default'], function () {
 gulp.task('default', ['sass',
                       'fonts',
                       'normalize',
-                      'lint',
+                      // 'lint',
                       'browserify',
                       'browserify-test']);
 

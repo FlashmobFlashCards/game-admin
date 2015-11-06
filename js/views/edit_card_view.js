@@ -95,11 +95,11 @@ export default React.createClass({
 
 //     this setState({answer: newAnswer});
 //   },  
->>>>>>> cori-dev
+
 
 // // SAVE CHANGES
 
-<<<<<<< HEAD
+
   // UPDATE ANSWER
 
   updateAnswer(event) {
@@ -116,7 +116,7 @@ export default React.createClass({
 
 
   // SAVE CHANGES
-=======
+
 //   saveChanges(e) { // Does saveChanges need to be addChanges?
 //     event.preventDefault();
 //     this.props.onSubmitChangesClick(
@@ -140,6 +140,15 @@ export default React.createClass({
 //   },
 
 
+  saveChanges(e) { // Does saveChanges need to be addChanges?
+    event.preventDefault();
+    this.props.onSubmitChangesClick(
+      this.state.question,
+      this.state.answer
+      );
+  },  
+
+
   // GO BACK TO EDIT DECK VIEW
 
 
@@ -154,14 +163,19 @@ export default React.createClass({
     this.props.onBackClick(); // Does this need to be an individual onBackClick?
   },
 
+
   // render() {
   //   return (
 
+  render() {
+    return (
+
+
   // BUTTONS    
-  <div className="btns">
-    <button onClick{() => this.goEditDeckView()}>Edit Deck</button> // Do we need a fa fa icon for this?
-    <button onClick{() => this.goDeckGalleryView()}>Deck Gallery</button> // Do we need a fa fa icon for this?
-   // Do we redirect to refreshed edit_card_view.js? <button onClick{() => this.go?View()}>Save Changes</button> // Do we need a fa fa icon for this?
+  // <div className="btns">
+  //   <button onClick={() => this.goEditDeckView()}>Edit Deck</button> 
+  //   <button onClick={() => this.goDeckGalleryView()}>Deck Gallery</button> 
+  // Do we redirect to refreshed edit_card_view.js? <button onClick{() => this.go?View()}>Save Changes</button> // Do we need a fa fa icon for this?
   // </div>
   <div className="edit-card">
     <h2>Edit Cards</h2>
