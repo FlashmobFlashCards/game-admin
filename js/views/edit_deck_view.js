@@ -1,43 +1,78 @@
-// import React from 'react';
-// import ReactDom from 'react-dom';
+import React from 'react';
+import ReactDom from 'react-dom';
 
-// export default React.createClass({
-//   // Display deck titles associated with user ID.
+export default React.createClass({
 
-//   // Click on deck title to go to associated edit_card_view.
-
-//   getInitialState: function() {
-//     return {value: ''};
-//   },
-
-//   handleChange: function(event) {
-//     this.setState({value: event.target.value});
-//   },
-
-  //render: function() {
-  //  var value = this.state.value;
-  //  return <input type="text" value={value} onChange={this.handleChange} />;
-  //},
-
-  // Create event listeners for editing deck fields
-
-// //onEditClick() {
-//     this.props.onEditClick();
-//   },
-
-//   onBackClick() {
-//     this.props.onBackClick();
-//   },  
+  // REQUIREMENTS
+  // DISPLAY ALL DECK TITLES (DECK ID DOESN'T NEEC TO BE DISPLAYED)
+  // CLICK ON DECK TO ACCESS EDIT_CARD VIEW
 
 
-//   render() {
-//     return (
-//       <div className='wholePage'>
+  // GET DECK ID, TITLE, CARD ID, QUESTION, AND ANSWER.
+  getInitialState: function() {
+    return ({  // Is ( necessary?
+      title: this.props.stored.title, // Do we need to include stored?
+    }); // Is ) necessary?
+  },
 
-//       // Create button to save changes
-//         <button onClick={this.onBackClick} className='backBtn'>Back to Deck Gallery</button>
-//       </div>
-//     );
-//   }
+  // UPDATE TITLE FUNCTION
 
-// });
+  updateTitle(event) {
+    let newTitle = event.currentTarget.value;
+
+    this.setState({answer: newTitle});
+  },  
+
+  // GO BACK TO EDIT DECK VIEW FUNCTION
+
+  goEditCardView() {
+    this.props.onEditClick();
+  },
+
+  // GO BACK TO DECK GALLERY FUNCTION
+
+  goDeckGallery() {
+    this.props.onBackClick(); 
+  },
+
+  remove() {
+    
+  },
+
+  render() {
+    return (
+
+  // BUTTONS    
+  <div className="btns">
+    <button onClick{() => this.goDeckGalleryView()}>Deck Gallery</button> // Do we need a fa fa icon for this?
+  </div>
+
+  // SHOW EDITABLE DECKS THAT LINK TO EDIT_CARD_VIEW
+  <div className="edit-deck">
+    <h2>Edit Decks</h2>
+    <div className="showDecks">
+      <ul className="changeDecks">
+        <li><a href="#" onEditClick={this.state.title}, {this.state.description}</a></li>
+      </ul>
+    </div>
+
+  // EDIT TITLE  
+    <div className="editTitle">
+    <form>
+      <label>Deck Title <input onChange={this.updateTitle} type="text" className="title" value={this.state.title}/></label>
+      <button onClick={this.saveChanges}>Save Changes</button>
+    </form>
+    </div>
+  </div>
+  )}
+
+    // DELETE DECKS
+  <div className="edit-deck">
+    <h2>Delete Decks</h2>
+    <div className="showDecks">
+      <ul className="deleteDecks">
+        <li>{this.state.title}, {this.state.description}</li>
+      </ul>
+    </div>
+
+});
