@@ -3,7 +3,8 @@ import ReactDom from 'react-dom';
 
 export default React.createClass({
 
-  createDeckSubmit() {
+  createDeckSubmit(event) {
+    event.preventDefault();
     this.props.onSubmitNewDeck();
   },
 
