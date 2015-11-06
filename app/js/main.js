@@ -148,6 +148,8 @@ exports['default'] = _backbone2['default'].Router.extend({
     "login": "userLogin",
     "logout": "logout",
     "deckgallery": "viewDecks",
+    "createdeck": "newDeck",
+    "createcard": "newCard",
     "flashgame": "playGame"
   },
 
@@ -270,16 +272,20 @@ exports['default'] = _backbone2['default'].Router.extend({
           return _this4.goto('logout');
         },
         onPlayClick: function () {
-          return console.log('hello');
+          return _this4.goto('flashgame');
         },
         onAddClick: function () {
-          return console.log('hello');
+          return _this4.goto('createdeck');
         },
         onEditClick: function () {
           return console.log('hello');
         },
         decks: _this4.deckcollect.toJSON() }));
     });
+  },
+
+  newCard: function newCard() {
+    this.render(_react2['default'].createElement(_views.CreateCard, null));
   }
 
 });
@@ -548,7 +554,7 @@ exports['default'] = _react2['default'].createClass({
         'form',
         { className: 'form' },
         _react2['default'].createElement('input', { type: 'text', placeholder: 'Username', className: 'logInput inputField user' }),
-        _react2['default'].createElement('input', { type: 'text', placeholder: 'Must be 6 alphanumeric characters', className: 'logInput inputField password' }),
+        _react2['default'].createElement('input', { type: 'text', placeholder: 'Password', className: 'logInput inputField password' }),
         _react2['default'].createElement(
           'button',
           { onClick: this.onSubmitClick, className: 'logInput loginBtn' },

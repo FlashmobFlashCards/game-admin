@@ -5,6 +5,7 @@ import ReactDom from 'react-dom';
 import Cookies from 'js-cookie';
 
 import {DeckCollection} from './resources';
+import {DeckModel} from './resources';
 
 import {RegisterForm} from './views';
 import {LoginView} from './views';
@@ -20,7 +21,9 @@ export default Backbone.Router.extend({
     "login" : "userLogin",
     "logout" : "logout",
     "deckgallery" : "viewDecks",
-    "flashgame" : "playGame",
+    "createdeck" : "newDeck",
+    "createcard" : "newCard",
+    "flashgame" : "playGame"
   },
 
   initialize(appElement) {
@@ -136,12 +139,18 @@ export default Backbone.Router.extend({
       this.render(
         <UserHomeView 
           onLogoutClick={() => this.goto('logout')}
-          onPlayClick={() => console.log('hello')}
-          onAddClick={() => console.log('hello')}
+          onPlayClick={() => this.goto('flashgame')}
+          onAddClick={() => this.goto('createdeck')}
           onEditClick={() => console.log('hello')}
           decks={this.deckcollect.toJSON()}/>
       );
     });
+  },
+
+  newCard() {
+    this.render(
+      <CreateCard/>
+    );
   }
       
 
