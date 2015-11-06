@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 import {RegisterForm} from './views';
 import {LoginView} from './views';
 import {HomeView} from './views';
+import {CreateCard} from './views';
 
 export default Backbone.Router.extend({
 
@@ -111,6 +112,6 @@ export default Backbone.Router.extend({
           });
         }}/>
     );
-  }
+  },
 
 });

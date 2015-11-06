@@ -2025,7 +2025,80 @@ html {
   content: ""; }
 
 body {
-  background: #FF0065;
-  opacity: 2; }
+  background: #7A8BA4;
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto; }
+  body::after {
+    clear: both;
+    content: "";
+    display: table; }
+  body .gameLogo {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 48.82117%;
+    margin-left: 25.58941%;
+    animation-duration: 3s;
+    animation-name: slidein; }
+    body .gameLogo:last-child {
+      margin-right: 0; }
+
+@keyframes slidein {
+  from {
+    margin-bottom: 100%;
+    width: 30%; }
+  to {
+    margin-bottom: 50%;
+    width: 50%; } }
+  body .container {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 48.82117%;
+    margin-left: 25.58941%;
+    margin: 7% 2.35% 0 31%; }
+    body .container:last-child {
+      margin-right: 0; }
+    body .container .logInput {
+      display: block; }
+    body .container .inputField {
+      width: 75%;
+      margin-bottom: 2%;
+      border: none;
+      border-radius: 2px;
+      height: 40px; }
+    body .container .loginBtn,
+    body .container .registerBtn {
+      padding: 2%;
+      border: none;
+      border-radius: 3px;
+      color: #fff; }
+    body .container .loginBtn {
+      width: 17%;
+      background: #FF6900; }
+    body .container .loginBtn:hover {
+      background: #FF7F00; }
+    body .container .registerLine {
+      margin-top: 8%; }
+      body .container .registerLine span.signUp {
+        color: #fff; }
+      body .container .registerLine .registerBtn {
+        margin-left: 4%;
+        width: 20%;
+        background: #00CEA7; }
+      body .container .registerLine .registerBtn:hover {
+        background: #00E9BA; }
+  body footer {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 48.82117%;
+    margin-left: 25.58941%;
+    margin-top: 10%;
+    text-align: center;
+    color: #fff; }
+    body footer:last-child {
+      margin-right: 0; }
 
 /*# sourceMappingURL=main.css.map */

@@ -2,6 +2,7 @@ import React from 'react';
 import LoginView from './login_page';
 
 
+
 export default React.createClass({
 
   onGoToRegister() {
@@ -11,11 +12,16 @@ export default React.createClass({
 
   render() {
     return (
-      <div className='container'>
+      <div> 
         <img src='images/flashcardlogo.png' className='gameLogo' />
-        <LoginView />
-        <button onClick={this.onGoToRegister}>Register</button>
-        <footer>&copy;Iron Games</footer>
+        <div className='container'>
+          <LoginView />
+          <div className='registerLine'>
+            <span className='signUp'>Don&#39;t have an account?</span>
+            <button onClick={this.onGoToRegister} className='registerBtn'>Create One</button>
+          </div>
+        </div>
+        <footer>&copy;FlashMob Games</footer>
       </div>
     );
   }
