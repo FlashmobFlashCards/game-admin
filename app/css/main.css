@@ -2100,5 +2100,34 @@ body {
     color: #fff; }
     body footer:last-child {
       margin-right: 0; }
+  body .regForm {
+    margin-top: 10%; }
+    body .regForm h2 {
+      text-align: center;
+      color: #3E3E3E; }
+  body .regField {
+    display: block;
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 48.82117%;
+    margin-left: 25.58941%;
+    height: 46px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 3px; }
+    body .regField:last-child {
+      margin-right: 0; }
+  body .regBtn {
+    width: 22%;
+    margin-left: 38%;
+    margin-top: 2%;
+    padding: 8px;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    background: #00CEA7; }
+  body .regBtn:hover {
+    background: #00E9BA; }
 
 /*# sourceMappingURL=main.css.map */

@@ -97,4 +97,41 @@ body {
     text-align: center;
     color: #fff;
   }
+
+
+  //////////// Register Form Page /////////////
+
+  .regForm {
+    margin-top: 10%;
+
+    h2 {
+      text-align: center;
+      color: $greyBalticSea;
+    }
+  }
+
+  .regField {
+    display: block;
+    @include span-columns(6);
+    @include shift(3);
+    height: 46px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 3px;
+  }
+
+  .regBtn {
+    width: 22%;
+    margin-left: 38%;
+    margin-top: 2%;
+    padding: 8px;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    background: $greenOcean;
+  }
+
+  .regBtn:hover {
+    background: $greenCarribean;
+  }
 }
