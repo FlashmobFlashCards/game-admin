@@ -11,6 +11,7 @@ export default React.createClass({
     this.props.onAddClick();
   },
 
+<<<<<<< HEAD
   onEditClick() {
     this.props.onEditClick();
   },
@@ -44,5 +45,3 @@ export default React.createClass({
       </div>
     );
   }
-
-});
