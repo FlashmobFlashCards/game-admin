@@ -56,11 +56,7 @@ exports['default'] = _backbone2['default'].Collection.extend({
 
   url: 'https://damp-cliffs-8775.herokuapp.com/deck',
 
-  model: _deck_model2['default'],
-
-  parse: function parse(data) {
-    return data.results;
-  }
+  model: _deck_model2['default']
 
 });
 module.exports = exports['default'];
