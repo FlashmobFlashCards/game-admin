@@ -11,7 +11,6 @@ export default React.createClass({
     this.props.onAddClick();
   },
 
-<<<<<<< HEAD
   onEditClick() {
     this.props.onEditClick();
   },
@@ -21,8 +20,9 @@ export default React.createClass({
   },
 
   processDecks(data) {
+    console.log(data);
     return (
-      <li key={data.deck_id}>{data.title}</li>
+      <li key={data.id}>{data.title}</li>
     );
   }, 
 
@@ -45,3 +45,5 @@ export default React.createClass({
       </div>
     );
   }
+
+});

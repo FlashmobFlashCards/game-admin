@@ -107,7 +107,7 @@ exports['default'] = _backbone2['default'].Collection.extend({
   model: _deck_model2['default'],
 
   parse: function parse(data) {
-    return data.results;
+    return data.decks;
   }
 
 });
@@ -130,7 +130,7 @@ exports['default'] = _backbone2['default'].Model.extend({
 
   urlRoot: 'https://damp-cliffs-8775.herokuapp.com/deck',
 
-  idAttribute: 'deck_id'
+  idAttribute: 'id'
 
 });
 module.exports = exports['default'];
@@ -235,6 +235,9 @@ exports['default'] = _backbone2['default'].Router.extend({
     this.render(_react2['default'].createElement(_views.HomeView, {
       onRegisterClick: function () {
         return _this.goto('register');
+      },
+      onLogin: function () {
+        return _this.onLogin();
       } }));
   },
 
@@ -244,9 +247,8 @@ exports['default'] = _backbone2['default'].Router.extend({
     this.render(_react2['default'].createElement(_views.LoginView, {
 
       onLoginClick: function () {
-        var userName = document.querySelector('.user').value;
-        var password = document.querySelector('.password').value;
-
+        var userName = document.querySelector('#loginuser').value;
+        var password = document.querySelector('#userpassword').value;
         var request = _jquery2['default'].ajax({
           url: 'https://damp-cliffs-8775.herokuapp.com/login',
           method: 'POST',
@@ -264,7 +266,8 @@ exports['default'] = _backbone2['default'].Router.extend({
               auth_token: data.access_token
             }
           });
-          _this2.goto('');
+          console.log('logging in');
+          _this2.goto('deckgallery');
         }).fail(function () {
           alert('something went wrong');
           _this2.goto('deckgallery');
@@ -272,8 +275,38 @@ exports['default'] = _backbone2['default'].Router.extend({
       } }));
   },
 
-  registerForm: function registerForm() {
+  onLogin: function onLogin() {
     var _this3 = this;
+
+    var userName = document.querySelector('#loginuser').value;
+    var password = document.querySelector('#userpassword').value;
+    var request = _jquery2['default'].ajax({
+      url: 'https://damp-cliffs-8775.herokuapp.com/login',
+      method: 'POST',
+      data: {
+        username: userName,
+        password: password
+      }
+    });
+
+    request.then(function (data) {
+      _jsCookie2['default'].set('user', data);
+
+      _jquery2['default'].ajaxSetup({
+        headers: {
+          auth_token: data.access_token
+        }
+      });
+      console.log('logging in');
+      _this3.goto('deckgallery');
+    }).fail(function () {
+      alert('something went wrong');
+      _this3.goto('');
+    });
+  },
+
+  registerForm: function registerForm() {
+    var _this4 = this;
 
     this.render(_react2['default'].createElement(_views.RegisterForm, {
       onCreateUserClick: function () {
@@ -296,7 +329,7 @@ exports['default'] = _backbone2['default'].Router.extend({
 
         request.then(function (data) {
           _jsCookie2['default'].set('user', data);
-          console.log(data.toJSON());
+          console.log(data);
           _jquery2['default'].ajaxSetup({
             headers: {
               auth_token: data.access_token
@@ -304,7 +337,7 @@ exports['default'] = _backbone2['default'].Router.extend({
           });
 
           alert('user creation successful!');
-          _this3.goto('');
+          _this4.goto('deckgallery');
         });
       } }));
   },
@@ -322,28 +355,28 @@ exports['default'] = _backbone2['default'].Router.extend({
   },
 
   viewDecks: function viewDecks() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.deckcollect.fetch().then(function () {
-      _this4.render(_react2['default'].createElement(_views.UserHomeView, {
+      _this5.render(_react2['default'].createElement(_views.UserHomeView, {
         onLogoutClick: function () {
-          return _this4.goto('logout');
+          return _this5.goto('logout');
         },
         onPlayClick: function () {
-          return _this4.goto('flashgame');
+          return _this5.goto('flashgame');
         },
         onAddClick: function () {
-          return _this4.goto('createdeck');
+          return _this5.goto('createdeck');
         },
         onEditClick: function () {
           return console.log('hello');
         },
-        decks: _this4.deckcollect.toJSON() }));
+        decks: _this5.deckcollect.toJSON() }));
     });
   },
 
   newDeck: function newDeck() {
-    var _this5 = this;
+    var _this6 = this;
 
     this.render(_react2['default'].createElement('createdeck', {
       onSubmitNewDeck: function () {
@@ -356,13 +389,13 @@ exports['default'] = _backbone2['default'].Router.extend({
         });
 
         newDeck.save().then(function () {
-          return _this5.goto('deckgallery');
+          return _this6.goto('deckgallery');
         });
       } }));
   },
 
   newCard: function newCard() {
-    var _this6 = this;
+    var _this7 = this;
 
     this.render(_react2['default'].createElement(_views.CreateCard, {
       onSubmitNewCard: function () {
@@ -377,7 +410,7 @@ exports['default'] = _backbone2['default'].Router.extend({
         });
 
         newCard.save().then(function () {
-          return _this6.goto('deckgallery');
+          return _this7.goto('deckgallery');
         });
       } }));
   }
@@ -469,9 +502,10 @@ exports['default'] = _react2['default'].createClass({
   },
 
   processDecks: function processDecks(data) {
+    console.log(data);
     return _react2['default'].createElement(
       'li',
-      { key: data.deck_id },
+      { key: data.id },
       data.title
     );
   },
@@ -538,6 +572,18 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _backbone = require('backbone');
+
+var _backbone2 = _interopRequireDefault(_backbone);
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _jsCookie = require('js-cookie');
+
+var _jsCookie2 = _interopRequireDefault(_jsCookie);
+
 var _login_page = require('./login_page');
 
 var _login_page2 = _interopRequireDefault(_login_page);
@@ -553,6 +599,10 @@ exports['default'] = _react2['default'].createClass({
     this.props.onRegisterClick();
   },
 
+  onLoginClick: function onLoginClick() {
+    this.props.onLogin();
+  },
+
   render: function render() {
     return _react2['default'].createElement(
       'div',
@@ -561,8 +611,7 @@ exports['default'] = _react2['default'].createClass({
       _react2['default'].createElement(
         'div',
         { className: 'container' },
-        _react2['default'].createElement(_login_page2['default'], {
-          onSubmit: this.onGoToMain }),
+        _react2['default'].createElement(_login_page2['default'], { onLoginClick: this.onLoginClick }),
         _react2['default'].createElement(
           'div',
           { className: 'registerLine' },
@@ -589,7 +638,7 @@ exports['default'] = _react2['default'].createClass({
 });
 module.exports = exports['default'];
 
-},{"./login_page":12,"react":175}],11:[function(require,module,exports){
+},{"./login_page":12,"backbone":14,"jquery":16,"js-cookie":17,"react":175}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -644,7 +693,8 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 exports['default'] = _react2['default'].createClass({
   displayName: 'login_page',
 
-  onSubmitClick: function onSubmitClick() {
+  onSubmitClick: function onSubmitClick(event) {
+    event.preventDefault();
     this.props.onLoginClick();
   },
 
@@ -654,10 +704,10 @@ exports['default'] = _react2['default'].createClass({
       'div',
       { className: 'loginBox' },
       _react2['default'].createElement(
-        'form',
+        'div',
         { className: 'form' },
-        _react2['default'].createElement('input', { type: 'text', placeholder: 'Username', className: 'logInput inputField user' }),
-        _react2['default'].createElement('input', { type: 'text', placeholder: 'Password', className: 'logInput inputField password' }),
+        _react2['default'].createElement('input', { type: 'text', placeholder: 'Username', id: 'loginuser', className: 'logInput inputField user' }),
+        _react2['default'].createElement('input', { type: 'password', placeholder: 'Password', id: 'userpassword', className: 'logInput inputField password' }),
         _react2['default'].createElement(
           'button',
           { onClick: this.onSubmitClick, className: 'logInput loginBtn' },
