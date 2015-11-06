@@ -3,6 +3,10 @@ import ReactDom from 'react-dom';
 
 export default React.createClass({
 
+  createDeckSubmit() {
+    this.props.onSubmitNewDeck();
+  },
+
   render() {
     console.log(this);
     return (
