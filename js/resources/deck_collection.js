@@ -7,8 +7,4 @@ export default Backbone.Collection.extend({
 
   model: DeckModel,
 
-  parse(data) {
-    return data.results;
-  }
-
 });
