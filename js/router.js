@@ -15,6 +15,7 @@ import {HomeView} from './views';
 import {CreateCard} from './views';
 import {CreateDeck} from './views';
 import {UserHomeView} from './views';
+import {EditDeckView} from './views';
 
 export default Backbone.Router.extend({
 
@@ -26,6 +27,8 @@ export default Backbone.Router.extend({
     "deckgallery" : "viewDecks",
     "createdeck" : "newDeck",
     "createcard" : "newCard",
+    "editdeck" : "editUserDeck",
+    "editdeck/:id" : "editSpecificDeck",
     "flashgame" : "playGame"
   },
 
@@ -172,13 +175,14 @@ export default Backbone.Router.extend({
   },
 
   viewDecks() {
+    this.setHeaders();
     this.deckcollect.fetch().then(() => {
       this.render(
         <UserHomeView 
           onLogoutClick={() => this.goto('logout')}
           onPlayClick={() => this.goto('flashgame')}
           onAddClick={() => this.goto('createdeck')}
-          onEditClick={() => console.log('hello')}
+          onEditClick={() => this.goto('editdeck')}
           decks={this.deckcollect.toJSON()}/>
       );
     });
@@ -228,6 +232,17 @@ export default Backbone.Router.extend({
 
       }}/>
     );
+  },
+
+  editUserDeck() {
+    this.setHeaders();
+    this.deckcollect.fetch().then(() => {
+      this.render(
+        <EditDeckView
+          onChooseEdit={() => console.log('want to go to edit')}
+          decks={this.deckcollect.toJSON()}/>
+      )
+    });
   }
       
 

@@ -136,3 +136,16 @@ body {
     background: $greenCarribean;
   }
 }
+
+//////////////// Deck Gallery ///////////////////
+
+.decks {
+  @include span-columns(9);
+  list-style: none;
+  display: inline-block;
+  padding: 30px;
+  border: 1px solid black;
+  width: 150px;
+  height: 150px;
+  margin-top: 20px;
+}

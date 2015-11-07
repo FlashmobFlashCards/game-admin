@@ -2131,4 +2131,19 @@ body {
   body .regBtn:hover {
     background: #00E9BA; }
 
+.decks {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 74.41059%;
+  list-style: none;
+  display: inline-block;
+  padding: 30px;
+  border: 1px solid black;
+  width: 150px;
+  height: 150px;
+  margin-top: 20px; }
+  .decks:last-child {
+    margin-right: 0; }
+
 /*# sourceMappingURL=main.css.map */
