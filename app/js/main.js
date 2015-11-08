@@ -439,6 +439,9 @@ exports['default'] = _backbone2['default'].Router.extend({
         onChooseEdit: function () {
           return console.log('want to go to edit');
         },
+        backToGallery: function () {
+          return _this8.goto('deckgallery');
+        },
         decks: _this8.deckcollect.toJSON() }));
     });
   }
@@ -871,6 +874,10 @@ exports["default"] = _react2["default"].createClass({
 		this.props.onChooseEdit();
 	},
 
+	goBack: function goBack() {
+		this.props.backToGallery();
+	},
+
 	getUserDecks: function getUserDecks(data) {
 		return _react2["default"].createElement(
 			"li",
@@ -888,6 +895,17 @@ exports["default"] = _react2["default"].createClass({
 				null,
 				"Choose a Deck to Edit"
 			),
+			_react2["default"].createElement(
+				"button",
+				{ onClick: this.goBack, className: "back-btn" },
+				"Back"
+			),
+			_react2["default"].createElement(
+				"button",
+				{ className: "new-card" },
+				"Add Card to Deck"
+			),
+			_react2["default"].createElement("hr", null),
 			_react2["default"].createElement(
 				"ul",
 				null,

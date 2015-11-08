@@ -240,6 +240,7 @@ export default Backbone.Router.extend({
       this.render(
         <EditDeckView
           onChooseEdit={() => console.log('want to go to edit')}
+          backToGallery={() => this.goto('deckgallery')}
           decks={this.deckcollect.toJSON()}/>
       )
     });

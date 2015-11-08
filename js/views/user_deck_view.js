@@ -6,6 +6,10 @@ export default React.createClass({
 		this.props.onChooseEdit();
 	},
 
+	goBack() {
+		this.props.backToGallery();
+	},
+
 	getUserDecks(data) {
 		return (
 			<li className="decks" onClick={this.chooseEditDeck} key={data.deck_id}>{data.title}</li>
@@ -16,6 +20,9 @@ export default React.createClass({
 		return (
 			<div className="user-decks">
 				<h2>Choose a Deck to Edit</h2>
+				<button onClick={this.goBack} className="back-btn">Back</button>
+				<button className="new-card">Add Card to Deck</button>
+				<hr/>
 				<ul>{this.props.decks.map(this.getUserDecks)}</ul>
 			</div>
 		);
