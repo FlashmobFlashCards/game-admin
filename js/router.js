@@ -18,6 +18,7 @@ import {UserHomeView} from './views';
 import {EditCardView} from './views';
 import {Spinner} from './views';
 import {EditDeckView} from './views';
+import {CardGalleryView} from './views';
 
 export default Backbone.Router.extend({
 
@@ -31,7 +32,7 @@ export default Backbone.Router.extend({
     "createcard" : "newCard",
     "editcard" : "updateCard",
     "editdeck" : "editUserDeck",
-    "editdeck/:deck_id/card" : "editSpecificDeck",
+    "editdeck/:deck_id" : "cardGallery",
     "flashgame" : "playGame"
   },
 
@@ -288,8 +289,25 @@ export default Backbone.Router.extend({
       this.render(
         <EditDeckView
           decks={this.deckcollect.toJSON()}
-          onChooseEdit={(id) => console.log(id)}
+          onChooseEdit={(id) => this.goto('editdeck/' + id)}
           backToGallery={() => this.goto('deckgallery')}/>
+      )
+    });
+  },
+
+  cardGallery(deck_id, question) {
+    this.setHeaders();
+    let request = $.ajax({
+      url: `https://damp-cliffs-8775.herokuapp.com/deck/${deck_id}/card`,
+      method: 'GET'
+    });
+    request.then((deck) => {
+      Cookies.set('spdeck', {deck_id, question});
+      console.log(deck);
+      let fullDeck = deck.cards;
+      this.render(
+        <CardGalleryView
+          cards={fullDeck}/>
       )
     });
   }

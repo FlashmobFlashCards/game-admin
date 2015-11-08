@@ -7,7 +7,7 @@ import CreateDeck from './create_deck';
 import EditCardView from './edit_card_view';
 import Spinner from './spinner';
 import EditDeckView from './user_deck_view';
-
+import CardGalleryView from './card_gallery';
 
 export {
 	HomeView,
@@ -18,6 +18,6 @@ export {
 	UserHomeView,
 	EditCardView,
 	Spinner,
-	EditDeckView
-
+	EditDeckView,
+	CardGalleryView
 };
