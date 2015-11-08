@@ -2,8 +2,8 @@ import React from 'react';
 
 export default React.createClass({
 
-	chooseEditDeck() {
-		this.props.onChooseEdit();
+	chooseEditDeck(id) {
+		this.props.onChooseEdit(id);
 	},
 
 	goBack() {
@@ -12,7 +12,7 @@ export default React.createClass({
 
 	getUserDecks(data) {
 		return (
-			<li className="decks" onClick={this.chooseEditDeck} key={data.deck_id}>{data.title}</li>
+			<li className="decks" onClick={() => this.chooseEditDeck(data.deck_id)} key={data.deck_id}>{data.title}</li>
 		);
 	},
 

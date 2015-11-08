@@ -31,13 +31,14 @@ export default Backbone.Router.extend({
     "createcard" : "newCard",
     "editcard" : "updateCard",
     "editdeck" : "editUserDeck",
-    "editdeck/:id" : "editSpecificDeck",
+    "editdeck/:deck_id/card" : "editSpecificDeck",
     "flashgame" : "playGame"
   },
 
   initialize(appElement) {
     this.el = appElement;
     this.deckcollect = new DeckCollection();
+    this.deckmodel = new DeckModel();
     this.cardcollect = new CardCollection();
   },
 
@@ -286,9 +287,9 @@ export default Backbone.Router.extend({
     this.deckcollect.fetch().then(() => {
       this.render(
         <EditDeckView
-          onChooseEdit={() => console.log('want to go to edit')}
-          backToGallery={() => this.goto('deckgallery')}
-          decks={this.deckcollect.toJSON()}/>
+          decks={this.deckcollect.toJSON()}
+          onChooseEdit={(id) => console.log(id)}
+          backToGallery={() => this.goto('deckgallery')}/>
       )
     });
   }

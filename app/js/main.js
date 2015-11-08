@@ -130,7 +130,7 @@ exports['default'] = _backbone2['default'].Model.extend({
 
   urlRoot: 'https://damp-cliffs-8775.herokuapp.com/deck',
 
-  idAttribute: 'id'
+  idAttribute: 'deck_id'
 
 });
 module.exports = exports['default'];
@@ -210,13 +210,14 @@ exports['default'] = _backbone2['default'].Router.extend({
     "createcard": "newCard",
     "editcard": "updateCard",
     "editdeck": "editUserDeck",
-    "editdeck/:id": "editSpecificDeck",
+    "editdeck/:deck_id/card": "editSpecificDeck",
     "flashgame": "playGame"
   },
 
   initialize: function initialize(appElement) {
     this.el = appElement;
     this.deckcollect = new _resources.DeckCollection();
+    this.deckmodel = new _resources.DeckModel();
     this.cardcollect = new _resources.CardCollection();
   },
 
@@ -494,13 +495,13 @@ exports['default'] = _backbone2['default'].Router.extend({
     this.setHeaders();
     this.deckcollect.fetch().then(function () {
       _this10.render(_react2['default'].createElement(_views.EditDeckView, {
-        onChooseEdit: function () {
-          return console.log('want to go to edit');
+        decks: _this10.deckcollect.toJSON(),
+        onChooseEdit: function (id) {
+          return console.log(id);
         },
         backToGallery: function () {
           return _this10.goto('deckgallery');
-        },
-        decks: _this10.deckcollect.toJSON() }));
+        } }));
     });
   }
 
@@ -1144,8 +1145,8 @@ var _react2 = _interopRequireDefault(_react);
 exports["default"] = _react2["default"].createClass({
 	displayName: "user_deck_view",
 
-	chooseEditDeck: function chooseEditDeck() {
-		this.props.onChooseEdit();
+	chooseEditDeck: function chooseEditDeck(id) {
+		this.props.onChooseEdit(id);
 	},
 
 	goBack: function goBack() {
@@ -1153,9 +1154,13 @@ exports["default"] = _react2["default"].createClass({
 	},
 
 	getUserDecks: function getUserDecks(data) {
+		var _this = this;
+
 		return _react2["default"].createElement(
 			"li",
-			{ className: "decks", onClick: this.chooseEditDeck, key: data.deck_id },
+			{ className: "decks", onClick: function () {
+					return _this.chooseEditDeck(data.deck_id);
+				}, key: data.deck_id },
 			data.title
 		);
 	},
