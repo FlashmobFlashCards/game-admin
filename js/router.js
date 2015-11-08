@@ -257,8 +257,8 @@ export default Backbone.Router.extend({
       onEditClick={()=> this.goto('this is the edit deck view')}
       onGalleryClick={()=> this.goto('deckgallery')}
       onAddClick={()=> this.goto('createdeck')}
-      onSubmitModified={(card_id, question, answer)=>{
-        this.saveChanges(card_id, question, answer);
+      onSubmitModified={(card_id, title, question, answer)=>{
+        this.saveChanges(card_id, title, question, answer);
 
         let modifiedCard = $.ajax({
           url: 'https://damp-cliffs-8775.herokuapp.com/deck/:card_id',
@@ -269,8 +269,9 @@ export default Backbone.Router.extend({
     );
   },
 
-  saveUpdatedCard(id, question, answer) {
+  saveUpdatedCard(id, title, question, answer) {
     this.cardcollect.get(id).save({
+      title: title,
       card_id: id,
       question: question,
       answer: answer

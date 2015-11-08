@@ -20,8 +20,6 @@ export default React.createClass({
           <h2 className='addDeck'>Add a deck</h2>
           <input type='text' placeholder='Deck Title' className='newDeckField deckTitleField' />
           <p className='para'>Create a unique title for this deck</p>
-          <input type='text' placeholder='Description' className='newDeckField deckDescripField' />
-          <p className='para'>Give this deck a description</p>
           <button onClick={this.createDeckSubmit} className='newCardField deckSubmit'>Create Deck</button>
           <button onClick={this.goBackBtn} className='newCardField deckCreateBackBtn'>Go Back</button>
         </form>
