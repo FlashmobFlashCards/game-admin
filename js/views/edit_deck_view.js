@@ -93,7 +93,7 @@
           <h2>Edit Decks</h2>
           <div className="showDecks">
             <ul className="changeDecks">
-              <li><a href="#" onEditClick={this.state.title}, {this.state.description}</a></li>
+              <li><a href="#" onEditClick={()=> console.log('hi')}>{this.state.description}</a></li>
             </ul>
             </div>
           </div>
