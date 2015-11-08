@@ -17,6 +17,7 @@ import {CreateDeck} from './views';
 import {UserHomeView} from './views';
 import {EditCardView} from './views';
 import {Spinner} from './views';
+import {EditDeckView} from './views';
 
 export default Backbone.Router.extend({
 
@@ -29,6 +30,8 @@ export default Backbone.Router.extend({
     "createdeck" : "newDeck",
     "createcard" : "newCard",
     "editcard" : "updateCard",
+    "editdeck" : "editUserDeck",
+    "editdeck/:id" : "editSpecificDeck",
     "flashgame" : "playGame"
   },
 
@@ -182,13 +185,14 @@ export default Backbone.Router.extend({
   },
 
   viewDecks() {
+    this.setHeaders();
     this.deckcollect.fetch().then(() => {
       this.render(
         <UserHomeView 
           onLogoutClick={() => this.goto('logout')}
           onPlayClick={() => this.goto('flashgame')}
           onAddClick={() => this.goto('createdeck')}
-          onEditClick={() => console.log('hello')}
+          onEditClick={() => this.goto('editdeck')}
           decks={this.deckcollect.toJSON()}/>
       );
     });
@@ -274,7 +278,18 @@ export default Backbone.Router.extend({
       alert('Your card has been updated');
       this.goto('deckgallery');
     });
-  }
+  },
       
+  editUserDeck() {
+    this.setHeaders();
+    this.deckcollect.fetch().then(() => {
+      this.render(
+        <EditDeckView
+          onChooseEdit={() => console.log('want to go to edit')}
+          backToGallery={() => this.goto('deckgallery')}
+          decks={this.deckcollect.toJSON()}/>
+      )
+    });
+  }
 
 });

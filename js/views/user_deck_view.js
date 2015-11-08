@@ -1,5 +1,35 @@
-// import React from 'react';
-// import ReactDom from 'react-dom';
+import React from 'react';
+
+export default React.createClass({
+
+	chooseEditDeck() {
+		this.props.onChooseEdit();
+	},
+
+	goBack() {
+		this.props.backToGallery();
+	},
+
+	getUserDecks(data) {
+		return (
+			<li className="decks" onClick={this.chooseEditDeck} key={data.deck_id}>{data.title}</li>
+		);
+	},
+
+	render() {
+		return (
+			<div className="user-decks">
+				<h2>Choose a Deck to Edit</h2>
+				<button onClick={this.goBack} className="back-btn">Back</button>
+				<button className="new-card">Add Card to Deck</button>
+				<hr/>
+				<ul>{this.props.decks.map(this.getUserDecks)}</ul>
+			</div>
+		);
+	}
+
+
+});
 
 // export default React.createClass({
 // // Display deck titles associated with user ID.

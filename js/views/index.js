@@ -6,6 +6,7 @@ import UserHomeView from './deck_gallery';
 import CreateDeck from './create_deck';
 import EditCardView from './edit_card_view';
 import Spinner from './spinner';
+import EditDeckView from './user_deck_view';
 
 
 export {
@@ -16,5 +17,7 @@ export {
 	CreateDeck,
 	UserHomeView,
 	EditCardView,
-	Spinner
+	Spinner,
+	EditDeckView
+
 };
