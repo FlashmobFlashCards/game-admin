@@ -434,28 +434,27 @@ exports['default'] = _backbone2['default'].Router.extend({
       } }));
   },
 
-  newCard: function newCard() {
+  newCard: function newCard(deck_id) {
     var _this7 = this;
 
     this.setHeaders();
     this.render(_react2['default'].createElement(_views.CreateCard, {
       onSubmitNewCard: function () {
-        var cardTitle = document.querySelector('.titleField').value;
         var cardQuestion = document.querySelector('.questionField').value;
         var cardAnswer = document.querySelector('.answerField').value;
 
         var newCard = _jquery2['default'].ajax({
-          url: 'https://damp-cliffs-8775.herokuapp.com/card',
+          url: 'https://damp-cliffs-8775.herokuapp.com/deck/${deck_id}/card',
           method: 'POST',
           data: {
-            title: cardTitle,
             question: cardQuestion,
             answer: cardAnswer
           }
         });
 
         newCard.then(function () {
-          return _this7.goto('deckgallery');
+          alert('Add new card?');
+          _this7.goto('editdeck');
         });
       } }));
   },
@@ -608,8 +607,8 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 exports['default'] = _react2['default'].createClass({
   displayName: 'create_card',
 
-  createCardSubmit: function createCardSubmit() {
-    this.props.onSubmitNewCard();
+  createCardSubmit: function createCardSubmit(deck_id) {
+    this.props.onSubmitNewCard(this.state.deck_id);
   },
 
   render: function render() {
@@ -617,7 +616,6 @@ exports['default'] = _react2['default'].createClass({
     return _react2['default'].createElement(
       'form',
       { className: 'form' },
-      _react2['default'].createElement('input', { type: 'text', placeholder: 'Title of this card', className: 'newCardField titleField' }),
       _react2['default'].createElement('input', { type: 'text', placeholder: 'Enter a question', className: 'newCardField questionField' }),
       _react2['default'].createElement('input', { type: 'text', placeholder: 'Enter the answer', className: 'newCardField answerField' }),
       _react2['default'].createElement(

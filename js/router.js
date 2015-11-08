@@ -225,27 +225,27 @@ export default Backbone.Router.extend({
     );
   },
 
-  newCard() {
+  newCard(deck_id) {
     this.setHeaders();
     this.render(
       <CreateCard
       onSubmitNewCard={()=>{
-        let cardTitle = document.querySelector('.titleField').value;
         let cardQuestion = document.querySelector('.questionField').value;
         let cardAnswer = document.querySelector('.answerField').value;
 
         let newCard = $.ajax({
-          url: 'https://damp-cliffs-8775.herokuapp.com/card',
+          url: 'https://damp-cliffs-8775.herokuapp.com/deck/${deck_id}/card',
           method: 'POST',
           data: {
-            title: cardTitle,
             question: cardQuestion,
             answer: cardAnswer
           }
         });
     
-        newCard.then(()=>this.goto('deckgallery'));
-
+        newCard.then(() => {
+          alert('Add new card?');
+          this.goto('editdeck');
+      });
       }}/>
     );
   },
