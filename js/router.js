@@ -15,6 +15,8 @@ import {HomeView} from './views';
 import {CreateCard} from './views';
 import {CreateDeck} from './views';
 import {UserHomeView} from './views';
+import {EditCardView} from './views';
+import {Spinner} from './views';
 
 export default Backbone.Router.extend({
 
@@ -26,17 +28,35 @@ export default Backbone.Router.extend({
     "deckgallery" : "viewDecks",
     "createdeck" : "newDeck",
     "createcard" : "newCard",
+    "editcard" : "updateCard",
     "flashgame" : "playGame"
   },
 
   initialize(appElement) {
     this.el = appElement;
     this.deckcollect = new DeckCollection();
+    this.cardcollect = new CardCollection();
   },
 
   start() {
     Backbone.history.start();
     return this; 
+  },
+
+  setHeaders() {
+    let user = Cookies.get('user');
+    console.log(user);
+    if (user) {
+      let auth = JSON.parse(user).user.access_token;
+      console.log(auth);
+      $.ajaxSetup({
+        headers: {
+          'Access-Token': auth
+        }
+      });
+    } else {
+      this.goto('');
+    }
   },
 
   goto(route) {
@@ -45,6 +65,10 @@ export default Backbone.Router.extend({
 
   render(component) {
     ReactDom.render(component, this.el);
+  },
+
+  spinner() {
+    this.render(<Spinner/>);
   },
 
   home() {
@@ -74,12 +98,10 @@ export default Backbone.Router.extend({
         request.then((data) => {
           Cookies.set('user', data);
 
-          $.ajaxSetup({
-            headers: {
-              auth_token: data.access_token
-            }
-          });
+          this.setHeaders();
+
           console.log('logging in');
+          this.spinner();
           this.goto('deckgallery');
         }).fail(() => {
           alert('something went wrong');
@@ -104,11 +126,7 @@ export default Backbone.Router.extend({
     request.then((data) => {
       Cookies.set('user', data);
 
-      $.ajaxSetup({
-        headers: {
-          auth_token: data.access_token
-        }
-      });
+      this.setHeaders();
       console.log('logging in');
       this.goto('deckgallery');
     }).fail(() => {
@@ -120,6 +138,7 @@ export default Backbone.Router.extend({
   registerForm() {
     this.render(
       <RegisterForm 
+        onBackClick={() => this.goto('')}
         onCreateUserClick={() => {
 
           let fullName = document.querySelector('.name').value;
@@ -141,11 +160,7 @@ export default Backbone.Router.extend({
           request.then((data) => {
             Cookies.set('user', data);
             console.log(data);
-            $.ajaxSetup({
-              headers: {
-                auth_token: data.access_token
-              }
-            });
+            this.setHeaders();
 
             alert('user creation successful!');
             this.goto('deckgallery');
@@ -180,8 +195,10 @@ export default Backbone.Router.extend({
   },
 
   newDeck() {
+    this.setHeaders();
     this.render(
       <CreateDeck
+      onGoBackClick={() => this.goto('deckgallery')}
       onSubmitNewDeck={()=>{
         console.log('submitting?');
         let deckTitle = document.querySelector('.deckTitleField').value;
@@ -203,6 +220,7 @@ export default Backbone.Router.extend({
   },
 
   newCard() {
+    this.setHeaders();
     this.render(
       <CreateCard
       onSubmitNewCard={()=>{
@@ -224,6 +242,38 @@ export default Backbone.Router.extend({
 
       }}/>
     );
+  },
+
+  updateCard(data) {
+    this.setHeaders();
+    let userData = this.cardcollect.get(data);
+    this.render(
+      <EditCardView 
+      data={userData.toJSON()}
+      onEditClick={()=> this.goto('this is the edit deck view')}
+      onGalleryClick={()=> this.goto('deckgallery')}
+      onAddClick={()=> this.goto('createdeck')}
+      onSubmitModified={(card_id, question, answer)=>{
+        this.saveChanges(card_id, question, answer);
+
+        let modifiedCard = $.ajax({
+          url: 'https://damp-cliffs-8775.herokuapp.com/deck/:card_id',
+          method: 'PUT'
+
+        });
+      }}/>
+    );
+  },
+
+  saveUpdatedCard(id, question, answer) {
+    this.cardcollect.get(id).save({
+      card_id: id,
+      question: question,
+      answer: answer
+    }).then(() => {
+      alert('Your card has been updated');
+      this.goto('deckgallery');
+    });
   }
       
 

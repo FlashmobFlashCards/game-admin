@@ -7,6 +7,10 @@ export default React.createClass({
     this.props.onCreateUserClick();
   },
 
+  backBtn() {
+    this.props.onBackClick();
+  },
+
   render() {
     return(
       <div className='regPage'>
@@ -17,6 +21,7 @@ export default React.createClass({
             <input type="text" placeholder='Create Username' className="user regField"/>
             <input type="password" placeholder='Create Password' className="password regField"/>
             <button onClick={this.createUser} className='regBtn regField'>Create Account</button>
+            <button onClick={this.backBtn} className='regBackBtn regField'>Go Back</button>
         </form>
         </div>
     );

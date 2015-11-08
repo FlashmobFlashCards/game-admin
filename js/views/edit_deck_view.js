@@ -37,6 +37,7 @@
 //     this.props.onBackClick(); 
 //   },
 
+
 //   remove() {
     
 //   },
@@ -78,3 +79,46 @@
 //     </div>
 
 // });
+
+  render() {
+    return (
+      <div>
+        // BUTTONS    
+        <div className="btns">
+          <button onClick={() => this.goDeckGalleryView()}>Deck Gallery</button> // Do we need a fa fa icon for this?
+        </div>
+
+        // SHOW EDITABLE DECKS THAT LINK TO EDIT_CARD_VIEW
+        <div className="edit-deck">
+          <h2>Edit Decks</h2>
+          <div className="showDecks">
+            <ul className="changeDecks">
+              <li><a href="#" onEditClick={this.state.title}, {this.state.description}</a></li>
+            </ul>
+            </div>
+          </div>
+
+        // EDIT TITLE  
+          <div className="editTitle">
+          <form>
+            <label>Deck Title <input onChange={this.updateTitle} type="text" className="title" value={this.state.title}/></label>
+            <button onClick={this.saveChanges}>Save Changes</button>
+          </form>
+          </div>
+
+          // DELETE DECKS
+        <div className="edit-deck">
+          <h2>Delete Decks</h2>
+          <div className="showDecks">
+            <ul className="deleteDecks">
+              <li>{this.state.title}, {this.state.description}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+
+

@@ -11,10 +11,12 @@ $greyGunsmoke: #838685;
 $orangeFlush: #FF7F00;
 $greenCarribean: #00E9BA;
 $greyBalticSea: #3E3E3E;
+$pinkTickle: #FF86A6;
 
 
 body {
   background: #7A8BA4;
+  font-family: 'Droid Sans', sans-serif;
   @include outer-container;
 
 //////// The Home Page with the log in and sign up container //////////
@@ -122,8 +124,7 @@ body {
 
   .regBtn {
     width: 22%;
-    margin-left: 38%;
-    margin-top: 2%;
+    margin: 2% 2% 0 27%;
     padding: 8px;
     border: none;
     border-radius: 3px;
@@ -133,5 +134,76 @@ body {
 
   .regBtn:hover {
     background: $greenCarribean;
+  }
+
+  .regBackBtn {
+    width: 22%;
+    margin: 2% 0 0 0;
+    background: $orangeSafety;
+    color: #fff;
+  }
+
+  .regBackBtn:hover {
+    background: $orangeFlush;
+  }
+
+
+  ///////////// Create Deck View //////////////
+
+  .deckForm {
+    @include span-columns(6);
+    @include shift(1);
+    display: inline;
+    margin: 11% 2.35% 0 10.52%;
+    width: 42%;
+
+    .addDeck {
+      color: $greyBalticSea;
+    }
+
+    .newDeckField {
+      width: 88%;
+      height: 40px;
+      border: 1px solid $greenCarribean;
+      border-radius: 3px;
+    }
+
+    .para {
+      margin-top: 0;
+      font-size: 14px;
+      color: $greyBalticSea;
+    }
+
+    .deckSubmit,
+    .deckCreateBackBtn {
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 10px;
+      margin-top: 2%
+    }
+
+    .deckSubmit {
+      background: $fuschiaFolly;
+    }
+
+    .deckSubmit:hover {
+      background: $pinkTickle;
+    }
+
+    .deckCreateBackBtn {
+      margin-left: 2%;
+      background: $greenOcean;
+    }
+
+    .deckCreateBackBtn:hover {
+      background: $greenCarribean;
+    }
+  }
+
+  .orangerex {
+    @include span-columns(6);
+    display: inline;
+    width: 40%;
   }
 }
