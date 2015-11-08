@@ -530,7 +530,10 @@ exports['default'] = _backbone2['default'].Router.extend({
       console.log(deck);
       var fullDeck = deck.cards;
       _this11.render(_react2['default'].createElement(_views.CardGalleryView, {
-        cards: fullDeck }));
+        cards: fullDeck,
+        onAddClickHandler: function () {
+          return _this11.goto('createcard');
+        } }));
     });
   }
 
@@ -561,6 +564,10 @@ exports['default'] = _react2['default'].createClass({
     );
   },
 
+  addClickBtn: function addClickBtn() {
+    this.props.onAddClickHandler();
+  },
+
   render: function render() {
     return _react2['default'].createElement(
       'div',
@@ -569,6 +576,11 @@ exports['default'] = _react2['default'].createClass({
         'ul',
         { className: 'cardGallery' },
         this.props.cards.map(this.processCards)
+      ),
+      _react2['default'].createElement(
+        'div',
+        { onClick: this.addClickBtn, className: 'addClickBtn' },
+        _react2['default'].createElement('i', { className: 'fa fa-plus-square-o' })
       )
     );
   }

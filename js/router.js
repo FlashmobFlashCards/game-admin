@@ -307,7 +307,8 @@ export default Backbone.Router.extend({
       let fullDeck = deck.cards;
       this.render(
         <CardGalleryView
-          cards={fullDeck}/>
+          cards={fullDeck}
+          onAddClickHandler={() => this.goto('createcard')}/>
       )
     });
   }
