@@ -30,9 +30,9 @@ export default Backbone.Router.extend({
     "deckgallery" : "viewDecks",
     "createdeck" : "newDeck",
     "createcard" : "newCard",
-    "editcard" : "updateCard",
     "editdeck" : "editUserDeck",
     "editdeck/:deck_id" : "cardGallery",
+    "editcard/:deckid/:card_id" : "updateCard",
     "flashgame" : "playGame"
   },
 
@@ -250,31 +250,9 @@ export default Backbone.Router.extend({
     );
   },
 
-  updateCard(data) {
-    this.setHeaders();
-    let userData = this.cardcollect.get(data);
-    this.render(
-      <EditCardView 
-      data={userData.toJSON()}
-      onEditClick={()=> this.goto('this is the edit deck view')}
-      onGalleryClick={()=> this.goto('deckgallery')}
-      onAddClick={()=> this.goto('createdeck')}
-      onSubmitModified={(card_id, title, question, answer)=>{
-        this.saveChanges(card_id, title, question, answer);
-
-        let modifiedCard = $.ajax({
-          url: 'https://damp-cliffs-8775.herokuapp.com/deck/:card_id',
-          method: 'PUT'
-
-        });
-      }}/>
-    );
-  },
-
-  saveUpdatedCard(id, title, question, answer) {
+  saveChanges(id, question, answer) {
     this.cardcollect.get(id).save({
-      title: title,
-      card_id: id,
+      deck_id: id,
       question: question,
       answer: answer
     }).then(() => {
@@ -282,6 +260,37 @@ export default Backbone.Router.extend({
       this.goto('deckgallery');
     });
   },
+
+  updateCard(deckid, cardid) {
+    this.setHeaders();
+    let request = $.ajax({
+      url: `https://damp-cliffs-8775.herokuapp.com/card/${cardid}`,
+      method: 'GET'
+    });
+
+    request.then((carddata, cardid) => {
+      let cardData = carddata.card;
+      console.log(cardData);
+      this.render(
+        <EditCardView
+          data={cardData}
+          onSubmitModified={(deck_id, question, answer) => {
+            let modifiedCard = $.ajax({
+              url: `https://damp-cliffs-8775.herokuapp.com/card/${cardid}`,
+              method: 'PUT',
+              data: {
+                deck_id: deck_id,
+                question: question,
+                answer: answer
+              }
+            });
+
+            modifiedCard.then(() => this.goto('deckgallery'));
+          }}/>
+      )
+    });
+  },
+
       
   editUserDeck() {
     this.setHeaders();
@@ -303,11 +312,13 @@ export default Backbone.Router.extend({
     });
     request.then((deck) => {
       Cookies.set('spdeck', {deck_id, question});
-      console.log(deck);
       let fullDeck = deck.cards;
+      let deckId = deck_id;
       this.render(
         <CardGalleryView
-          cards={fullDeck}/>
+          cards={fullDeck}
+          deckId={deckId}
+          editCardClick={(id) => this.goto(`editcard/${deckId}/${id}`)}/>
       )
     });
   }

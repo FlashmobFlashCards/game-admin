@@ -220,9 +220,9 @@ exports['default'] = _backbone2['default'].Router.extend({
     "deckgallery": "viewDecks",
     "createdeck": "newDeck",
     "createcard": "newCard",
-    "editcard": "updateCard",
     "editdeck": "editUserDeck",
     "editdeck/:deck_id": "cardGallery",
+    "editcard/:deckid/:card_id": "updateCard",
     "flashgame": "playGame"
   },
 
@@ -460,44 +460,48 @@ exports['default'] = _backbone2['default'].Router.extend({
       } }));
   },
 
-  updateCard: function updateCard(data) {
+  saveChanges: function saveChanges(id, question, answer) {
     var _this8 = this;
 
-    this.setHeaders();
-    var userData = this.cardcollect.get(data);
-    this.render(_react2['default'].createElement(_views.EditCardView, {
-      data: userData.toJSON(),
-      onEditClick: function () {
-        return _this8.goto('this is the edit deck view');
-      },
-      onGalleryClick: function () {
-        return _this8.goto('deckgallery');
-      },
-      onAddClick: function () {
-        return _this8.goto('createdeck');
-      },
-      onSubmitModified: function (card_id, title, question, answer) {
-        _this8.saveChanges(card_id, title, question, answer);
-
-        var modifiedCard = _jquery2['default'].ajax({
-          url: 'https://damp-cliffs-8775.herokuapp.com/deck/:card_id',
-          method: 'PUT'
-
-        });
-      } }));
-  },
-
-  saveUpdatedCard: function saveUpdatedCard(id, title, question, answer) {
-    var _this9 = this;
-
     this.cardcollect.get(id).save({
-      title: title,
-      card_id: id,
+      deck_id: id,
       question: question,
       answer: answer
     }).then(function () {
       alert('Your card has been updated');
-      _this9.goto('deckgallery');
+      _this8.goto('deckgallery');
+    });
+  },
+
+  updateCard: function updateCard(deckid, cardid) {
+    var _this9 = this;
+
+    this.setHeaders();
+    var request = _jquery2['default'].ajax({
+      url: 'https://damp-cliffs-8775.herokuapp.com/card/' + cardid,
+      method: 'GET'
+    });
+
+    request.then(function (carddata, cardid) {
+      var cardData = carddata.card;
+      console.log(cardData);
+      _this9.render(_react2['default'].createElement(_views.EditCardView, {
+        data: cardData,
+        onSubmitModified: function (deck_id, question, answer) {
+          var modifiedCard = _jquery2['default'].ajax({
+            url: 'https://damp-cliffs-8775.herokuapp.com/card/' + cardid,
+            method: 'PUT',
+            data: {
+              deck_id: deck_id,
+              question: question,
+              answer: answer
+            }
+          });
+
+          modifiedCard.then(function () {
+            return _this9.goto('deckgallery');
+          });
+        } }));
     });
   },
 
@@ -527,10 +531,14 @@ exports['default'] = _backbone2['default'].Router.extend({
     });
     request.then(function (deck) {
       _jsCookie2['default'].set('spdeck', { deck_id: deck_id, question: question });
-      console.log(deck);
       var fullDeck = deck.cards;
+      var deckId = deck_id;
       _this11.render(_react2['default'].createElement(_views.CardGalleryView, {
-        cards: fullDeck }));
+        cards: fullDeck,
+        deckId: deckId,
+        editCardClick: function (id) {
+          return _this11.goto('editcard/' + deckId + '/' + id);
+        } }));
     });
   }
 
@@ -553,10 +561,18 @@ var _react2 = _interopRequireDefault(_react);
 exports['default'] = _react2['default'].createClass({
   displayName: 'card_gallery',
 
+  chooseEditCard: function chooseEditCard(id) {
+    this.props.editCardClick(id);
+  },
+
   processCards: function processCards(data) {
+    var _this = this;
+
     return _react2['default'].createElement(
       'li',
-      { className: 'eachCard', key: data.card_id },
+      { className: 'eachCard', onClick: function () {
+          return _this.chooseEditCard(data.card_id);
+        }, key: data.card_id },
       data.question
     );
   },
@@ -565,6 +581,11 @@ exports['default'] = _react2['default'].createClass({
     return _react2['default'].createElement(
       'div',
       null,
+      _react2['default'].createElement(
+        'h2',
+        null,
+        'Click on a card to edit'
+      ),
       _react2['default'].createElement(
         'ul',
         { className: 'cardGallery' },
@@ -801,7 +822,7 @@ exports['default'] = _react2['default'].createClass({
 
   getInitialState: function getInitialState() {
     return {
-      card_id: this.props.data.card_id,
+      deck_id: this.props.data.deck_id,
       question: this.props.data.question,
       answer: this.props.data.answer
     };
@@ -810,14 +831,7 @@ exports['default'] = _react2['default'].createClass({
   setId: function setId(event) {
     var newId = event.currentTarget.value;
     this.setState({
-      card_id: newId
-    });
-  },
-
-  updateTitle: function updateTitle() {
-    var newTitle = event.currentTarget.value;
-    this.setState({
-      title: newTitle
+      deck_id: newId
     });
   },
 
@@ -889,7 +903,7 @@ exports['default'] = _react2['default'].createClass({
         _react2['default'].createElement(
           'h2',
           null,
-          'Edit Cards'
+          'Edit Card'
         ),
         _react2['default'].createElement(
           'form',
@@ -897,14 +911,8 @@ exports['default'] = _react2['default'].createClass({
           _react2['default'].createElement(
             'label',
             null,
-            'Id: ',
-            _react2['default'].createElement('input', { onChange: this.setId, type: 'text', className: 'cardId', value: this.state.card_id })
-          ),
-          _react2['default'].createElement(
-            'label',
-            null,
-            'Title: ',
-            _react2['default'].createElement('input', { onChange: this.updateTitle, type: 'text', className: 'updatedCardTitle', value: this.state.title })
+            'Deck Id: ',
+            _react2['default'].createElement('input', { onChange: this.setId, type: 'text', className: 'cardId', value: this.state.deck_id })
           ),
           _react2['default'].createElement(
             'label',
