@@ -259,7 +259,8 @@ export default Backbone.Router.extend({
 
     request.then((carddata) => {
       let cardData = carddata.card;
-      let cardId = cardData.deck_id;
+      console.log(cardData);
+      let cardId = cardData.card_id;
       this.render(
         <EditCardView
           id={cardId}
@@ -269,7 +270,6 @@ export default Backbone.Router.extend({
               url: `https://damp-cliffs-8775.herokuapp.com/card/${cardId}`,
               method: 'PUT',
               data: {
-                deck_id: cardId,
                 question: question,
                 answer: answer
               }
@@ -306,12 +306,11 @@ export default Backbone.Router.extend({
     request.then((deck) => {
       Cookies.set('spdeck', {deck_id});
       let fullDeck = deck.cards;
-      console.log(fullDeck);
       let deckId = deck_id;
       this.render(
         <CardGalleryView
           cards={fullDeck}
-          onAddClickHandler={() => this.goto('createcard')}/>
+          onAddClickHandler={() => this.goto('createcard')}
           deckId={deckId}
           editCardClick={(id) => this.goto(`editcard/${deckId}/${id}`)}/>
       )

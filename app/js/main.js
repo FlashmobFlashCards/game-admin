@@ -470,7 +470,8 @@ exports['default'] = _backbone2['default'].Router.extend({
 
     request.then(function (carddata) {
       var cardData = carddata.card;
-      var cardId = cardData.deck_id;
+      console.log(cardData);
+      var cardId = cardData.card_id;
       _this8.render(_react2['default'].createElement(_views.EditCardView, {
         id: cardId,
         data: cardData,
@@ -479,7 +480,6 @@ exports['default'] = _backbone2['default'].Router.extend({
             url: 'https://damp-cliffs-8775.herokuapp.com/card/' + cardId,
             method: 'PUT',
             data: {
-              deck_id: cardId,
               question: question,
               answer: answer
             }
@@ -521,20 +521,15 @@ exports['default'] = _backbone2['default'].Router.extend({
     request.then(function (deck) {
       _jsCookie2['default'].set('spdeck', { deck_id: deck_id });
       var fullDeck = deck.cards;
-<<<<<<< HEAD
-      _this11.render(_react2['default'].createElement(_views.CardGalleryView, {
-        cards: fullDeck,
-        onAddClickHandler: function () {
-          return _this11.goto('createcard');
-=======
-      console.log(fullDeck);
       var deckId = deck_id;
       _this10.render(_react2['default'].createElement(_views.CardGalleryView, {
         cards: fullDeck,
+        onAddClickHandler: function () {
+          return _this10.goto('createcard');
+        },
         deckId: deckId,
         editCardClick: function (id) {
           return _this10.goto('editcard/' + deckId + '/' + id);
->>>>>>> master
         } }));
     });
   }
@@ -569,7 +564,7 @@ exports['default'] = _react2['default'].createClass({
       'li',
       { className: 'eachCard', onClick: function () {
           return _this.chooseEditCard(data.card_id);
-        }, key: data.deck_id },
+        }, key: data.card_id },
       data.question
     );
   },
@@ -827,7 +822,7 @@ exports['default'] = _react2['default'].createClass({
 
   getInitialState: function getInitialState() {
     return {
-      deck_id: this.props.data.deck_id,
+      card_id: this.props.data.card_id,
       question: this.props.data.question,
       answer: this.props.data.answer
     };
@@ -836,7 +831,7 @@ exports['default'] = _react2['default'].createClass({
   setId: function setId(event) {
     var newId = event.currentTarget.value;
     this.setState({
-      deck_id: newId
+      card_id: newId
     });
   },
 
@@ -856,7 +851,7 @@ exports['default'] = _react2['default'].createClass({
 
   saveChanges: function saveChanges(event) {
     event.preventDefault();
-    this.props.onSubmitModified(this.state.deck_id, this.state.question, this.state.answer);
+    this.props.onSubmitModified(this.state.card_id, this.state.question, this.state.answer);
   },
 
   goEditDeckView: function goEditDeckView() {
@@ -917,7 +912,7 @@ exports['default'] = _react2['default'].createClass({
             'label',
             null,
             'Deck Id: ',
-            _react2['default'].createElement('input', { onChange: this.setId, type: 'text', className: 'deckId', value: this.state.deck_id })
+            _react2['default'].createElement('input', { onChange: this.setId, type: 'text', className: 'deckId', value: this.state.card_id })
           ),
           _react2['default'].createElement(
             'label',
