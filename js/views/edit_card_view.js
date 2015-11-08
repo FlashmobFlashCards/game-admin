@@ -36,6 +36,7 @@ export default React.createClass({
   saveChanges(event) {
   event.preventDefault();
   this.props.onSubmitModified(
+    this.state.deck_id,
     this.state.question,
     this.state.answer
     );
@@ -64,7 +65,7 @@ export default React.createClass({
           <div className="edit-card">
             <h2>Edit Card</h2>
             <form>
-              <label>Deck Id: <input onChange={this.setId} type='text' className='cardId' value={this.state.deck_id}/></label>
+              <label>Deck Id: <input onChange={this.setId} type='text' className='deckId' value={this.state.deck_id}/></label>
               <label>Card Question: <input onChange={this.updateQuestion} type="text" className="question" value={this.state.question}/></label>
               <label>Card Answer: <input onChange={this.updateAnswer} type="text" className="answer" value={this.state.answer}/></label>
               <button onClick={this.saveChanges}>Save Changes</button>

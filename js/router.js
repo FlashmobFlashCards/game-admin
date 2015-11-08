@@ -250,17 +250,6 @@ export default Backbone.Router.extend({
     );
   },
 
-  saveChanges(id, question, answer) {
-    this.cardcollect.get(id).save({
-      deck_id: id,
-      question: question,
-      answer: answer
-    }).then(() => {
-      alert('Your card has been updated');
-      this.goto('deckgallery');
-    });
-  },
-
   updateCard(deckid, cardid) {
     this.setHeaders();
     let request = $.ajax({
@@ -268,25 +257,28 @@ export default Backbone.Router.extend({
       method: 'GET'
     });
 
-    request.then((carddata, cardid) => {
+    request.then((carddata) => {
       let cardData = carddata.card;
-      console.log(cardData);
+      let cardId = cardData.deck_id;
       this.render(
         <EditCardView
+          id={cardId}
           data={cardData}
-          onSubmitModified={(deck_id, question, answer) => {
+          onSubmitModified={(cardId, question, answer) => {
             let modifiedCard = $.ajax({
-              url: `https://damp-cliffs-8775.herokuapp.com/card/${cardid}`,
+              url: `https://damp-cliffs-8775.herokuapp.com/card/${cardId}`,
               method: 'PUT',
               data: {
-                deck_id: deck_id,
+                deck_id: cardId,
                 question: question,
                 answer: answer
               }
             });
 
-            modifiedCard.then(() => this.goto('deckgallery'));
-          }}/>
+            modifiedCard.then(() => {
+              this.setHeaders();
+              this.goto('deckgallery');
+          });}}/>
       )
     });
   },
@@ -304,15 +296,17 @@ export default Backbone.Router.extend({
     });
   },
 
-  cardGallery(deck_id, question) {
+  cardGallery(deck_id) {
+    console.log(deck_id)
     this.setHeaders();
     let request = $.ajax({
       url: `https://damp-cliffs-8775.herokuapp.com/deck/${deck_id}/card`,
       method: 'GET'
     });
     request.then((deck) => {
-      Cookies.set('spdeck', {deck_id, question});
+      Cookies.set('spdeck', {deck_id});
       let fullDeck = deck.cards;
+      console.log(fullDeck);
       let deckId = deck_id;
       this.render(
         <CardGalleryView

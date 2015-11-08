@@ -460,21 +460,8 @@ exports['default'] = _backbone2['default'].Router.extend({
       } }));
   },
 
-  saveChanges: function saveChanges(id, question, answer) {
-    var _this8 = this;
-
-    this.cardcollect.get(id).save({
-      deck_id: id,
-      question: question,
-      answer: answer
-    }).then(function () {
-      alert('Your card has been updated');
-      _this8.goto('deckgallery');
-    });
-  },
-
   updateCard: function updateCard(deckid, cardid) {
-    var _this9 = this;
+    var _this8 = this;
 
     this.setHeaders();
     var request = _jquery2['default'].ajax({
@@ -482,62 +469,66 @@ exports['default'] = _backbone2['default'].Router.extend({
       method: 'GET'
     });
 
-    request.then(function (carddata, cardid) {
+    request.then(function (carddata) {
       var cardData = carddata.card;
-      console.log(cardData);
-      _this9.render(_react2['default'].createElement(_views.EditCardView, {
+      var cardId = cardData.deck_id;
+      _this8.render(_react2['default'].createElement(_views.EditCardView, {
+        id: cardId,
         data: cardData,
-        onSubmitModified: function (deck_id, question, answer) {
+        onSubmitModified: function (cardId, question, answer) {
           var modifiedCard = _jquery2['default'].ajax({
-            url: 'https://damp-cliffs-8775.herokuapp.com/card/' + cardid,
+            url: 'https://damp-cliffs-8775.herokuapp.com/card/' + cardId,
             method: 'PUT',
             data: {
-              deck_id: deck_id,
+              deck_id: cardId,
               question: question,
               answer: answer
             }
           });
 
           modifiedCard.then(function () {
-            return _this9.goto('deckgallery');
+            _this8.setHeaders();
+            _this8.goto('deckgallery');
           });
         } }));
     });
   },
 
   editUserDeck: function editUserDeck() {
-    var _this10 = this;
+    var _this9 = this;
 
     this.setHeaders();
     this.deckcollect.fetch().then(function () {
-      _this10.render(_react2['default'].createElement(_views.EditDeckView, {
-        decks: _this10.deckcollect.toJSON(),
+      _this9.render(_react2['default'].createElement(_views.EditDeckView, {
+        decks: _this9.deckcollect.toJSON(),
         onChooseEdit: function (id) {
-          return _this10.goto('editdeck/' + id);
+          return _this9.goto('editdeck/' + id);
         },
         backToGallery: function () {
-          return _this10.goto('deckgallery');
+          return _this9.goto('deckgallery');
         } }));
     });
   },
 
-  cardGallery: function cardGallery(deck_id, question) {
-    var _this11 = this;
+  cardGallery: function cardGallery(deck_id) {
+    var _this10 = this;
 
+    console.log(deck_id);
     this.setHeaders();
     var request = _jquery2['default'].ajax({
       url: 'https://damp-cliffs-8775.herokuapp.com/deck/' + deck_id + '/card',
       method: 'GET'
     });
     request.then(function (deck) {
-      _jsCookie2['default'].set('spdeck', { deck_id: deck_id, question: question });
+      _jsCookie2['default'].set('spdeck', { deck_id: deck_id });
       var fullDeck = deck.cards;
+      console.log(fullDeck);
       var deckId = deck_id;
-      _this11.render(_react2['default'].createElement(_views.CardGalleryView, {
+      _this10.render(_react2['default'].createElement(_views.CardGalleryView, {
         cards: fullDeck,
         deckId: deckId,
         editCardClick: function (id) {
-          return _this11.goto('editcard/' + deckId + '/' + id);
+          return _this10.goto('editcard/' + deckId + '/' + id);
         } }));
     });
   }
@@ -572,7 +563,7 @@ exports['default'] = _react2['default'].createClass({
       'li',
       { className: 'eachCard', onClick: function () {
           return _this.chooseEditCard(data.card_id);
-        }, key: data.card_id },
+        }, key: data.deck_id },
       data.question
     );
   },
@@ -851,7 +842,7 @@ exports['default'] = _react2['default'].createClass({
 
   saveChanges: function saveChanges(event) {
     event.preventDefault();
-    this.props.onSubmitModified(this.state.question, this.state.answer);
+    this.props.onSubmitModified(this.state.deck_id, this.state.question, this.state.answer);
   },
 
   goEditDeckView: function goEditDeckView() {
@@ -912,7 +903,7 @@ exports['default'] = _react2['default'].createClass({
             'label',
             null,
             'Deck Id: ',
-            _react2['default'].createElement('input', { onChange: this.setId, type: 'text', className: 'cardId', value: this.state.deck_id })
+            _react2['default'].createElement('input', { onChange: this.setId, type: 'text', className: 'deckId', value: this.state.deck_id })
           ),
           _react2['default'].createElement(
             'label',

@@ -8,7 +8,7 @@ export default React.createClass({
 
   processCards(data) {
     return(
-      <li className='eachCard' onClick={() => this.chooseEditCard(data.card_id)} key={data.card_id}>{data.question}</li>
+      <li className='eachCard' onClick={() => this.chooseEditCard(data.card_id)} key={data.deck_id}>{data.question}</li>
       );
   },
 
