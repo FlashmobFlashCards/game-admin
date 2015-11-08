@@ -3,8 +3,8 @@ import ReactDom from 'react-dom';
 
 export default React.createClass({
 
-
-  onSubmitClick() {
+  onSubmitClick(event) {
+    event.preventDefault();
     this.props.onLoginClick();
   },
 
@@ -12,12 +12,12 @@ export default React.createClass({
     console.log(this);
     return (
       <div className='loginBox'>
-        <form className='form'>
-          <input type='text' placeholder='Username' className='logInput inputField user' />
-          <input type='text' placeholder='Password' className='logInput inputField password' />
+        <div className='form'>
+          <input type='text' placeholder='Username' id="loginuser" className='logInput inputField user' />
+          <input type='password' placeholder='Password' id="userpassword" className='logInput inputField password' />
           <button onClick={this.onSubmitClick} className='logInput loginBtn'>Log In</button>
           <checkbox label='Remember Me' checked='false' className='logInput checkbox' />
-        </form>
+        </div>
       </div>
     );
   }

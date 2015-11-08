@@ -20,8 +20,9 @@ export default React.createClass({
   },
 
   processDecks(data) {
+    console.log(data);
     return (
-      <li key={data.deck_id}>{data.title}</li>
+      <li key={data.user_id}>{data.title}</li>
     );
   }, 
 

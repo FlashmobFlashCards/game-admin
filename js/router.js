@@ -13,7 +13,10 @@ import {RegisterForm} from './views';
 import {LoginView} from './views';
 import {HomeView} from './views';
 import {CreateCard} from './views';
+import {CreateDeck} from './views';
 import {UserHomeView} from './views';
+import {EditCardView} from './views';
+import {Spinner} from './views';
 
 export default Backbone.Router.extend({
 
@@ -25,17 +28,35 @@ export default Backbone.Router.extend({
     "deckgallery" : "viewDecks",
     "createdeck" : "newDeck",
     "createcard" : "newCard",
+    "editcard" : "updateCard",
     "flashgame" : "playGame"
   },
 
   initialize(appElement) {
     this.el = appElement;
     this.deckcollect = new DeckCollection();
+    this.cardcollect = new CardCollection();
   },
 
   start() {
     Backbone.history.start();
     return this; 
+  },
+
+  setHeaders() {
+    let user = Cookies.get('user');
+    console.log(user);
+    if (user) {
+      let auth = JSON.parse(user).user.access_token;
+      console.log(auth);
+      $.ajaxSetup({
+        headers: {
+          'Access-Token': auth
+        }
+      });
+    } else {
+      this.goto('');
+    }
   },
 
   goto(route) {
@@ -46,10 +67,15 @@ export default Backbone.Router.extend({
     ReactDom.render(component, this.el);
   },
 
+  spinner() {
+    this.render(<Spinner/>);
+  },
+
   home() {
     this.render(
-      <HomeView
-      onRegisterClick={() =>this.goto('register')} />
+      <HomeView 
+      onRegisterClick={() =>this.goto('register')}
+      onLogin={() => this.onLogin()} />
     );
   },
 
@@ -58,9 +84,8 @@ export default Backbone.Router.extend({
       <LoginView 
 
       onLoginClick={() => {
-        let userName = document.querySelector('.user').value;
-        let password = document.querySelector('.password').value;
-
+        let userName = document.querySelector('#loginuser').value;
+        let password = document.querySelector('#userpassword').value;
         let request = $.ajax({
           url: 'https://damp-cliffs-8775.herokuapp.com/login',
           method: 'POST',
@@ -73,12 +98,11 @@ export default Backbone.Router.extend({
         request.then((data) => {
           Cookies.set('user', data);
 
-          $.ajaxSetup({
-            headers: {
-              auth_token: data.access_token
-            }
-          });
-          this.goto('');
+          this.setHeaders();
+
+          console.log('logging in');
+          this.spinner();
+          this.goto('deckgallery');
         }).fail(() => {
           alert('something went wrong');
           this.goto('deckgallery');
@@ -87,9 +111,34 @@ export default Backbone.Router.extend({
     );
   },
 
+  onLogin() {
+    let userName = document.querySelector('#loginuser').value;
+    let password = document.querySelector('#userpassword').value;
+    let request = $.ajax({
+      url: 'https://damp-cliffs-8775.herokuapp.com/login',
+      method: 'POST',
+      data: {
+        username: userName,
+        password: password
+      }
+    });
+
+    request.then((data) => {
+      Cookies.set('user', data);
+
+      this.setHeaders();
+      console.log('logging in');
+      this.goto('deckgallery');
+    }).fail(() => {
+      alert('something went wrong');
+      this.goto('');
+    });
+  },
+
   registerForm() {
     this.render(
       <RegisterForm 
+        onBackClick={() => this.goto('')}
         onCreateUserClick={() => {
 
           let fullName = document.querySelector('.name').value;
@@ -110,15 +159,11 @@ export default Backbone.Router.extend({
 
           request.then((data) => {
             Cookies.set('user', data);
-            console.log(data.toJSON());
-            $.ajaxSetup({
-              headers: {
-                auth_token: data.access_token
-              }
-            });
+            console.log(data);
+            this.setHeaders();
 
             alert('user creation successful!');
-            this.goto('');
+            this.goto('deckgallery');
           });
         }}/>
     );
@@ -150,24 +195,32 @@ export default Backbone.Router.extend({
   },
 
   newDeck() {
+    this.setHeaders();
     this.render(
-      <createdeck
+      <CreateDeck
+      onGoBackClick={() => this.goto('deckgallery')}
       onSubmitNewDeck={()=>{
+        console.log('submitting?');
         let deckTitle = document.querySelector('.deckTitleField').value;
         let deckDescription = document.querySelector('.deckDescripField').value;
 
-        let newDeck = new DeckModel({
-          title: deckTitle,
-          description: deckDescription
+        let newDeck = $.ajax({
+          url: 'https://damp-cliffs-8775.herokuapp.com/deck',
+          method: 'POST',
+          data: {
+            title: deckTitle,
+            description: deckDescription
+          }
         });
 
-        newDeck.save().then(()=>this.goto('deckgallery'));
+        newDeck.then(()=>this.goto('deckgallery'));
 
       }}/>
     );
   },
 
   newCard() {
+    this.setHeaders();
     this.render(
       <CreateCard
       onSubmitNewCard={()=>{
@@ -175,16 +228,52 @@ export default Backbone.Router.extend({
         let cardQuestion = document.querySelector('.questionField').value;
         let cardAnswer = document.querySelector('.answerField').value;
 
-        let newCard = new CardModel({
-          title: cardTitle,
-          question: cardQuestion,
-          answer: cardAnswer
+        let newCard = $.ajax({
+          url: 'https://damp-cliffs-8775.herokuapp.com/card',
+          method: 'POST',
+          data: {
+            title: cardTitle,
+            question: cardQuestion,
+            answer: cardAnswer
+          }
         });
-
-        newCard.save().then(()=>this.goto('deckgallery'));
+    
+        newCard.then(()=>this.goto('deckgallery'));
 
       }}/>
     );
+  },
+
+  updateCard(data) {
+    this.setHeaders();
+    let userData = this.cardcollect.get(data);
+    this.render(
+      <EditCardView 
+      data={userData.toJSON()}
+      onEditClick={()=> this.goto('this is the edit deck view')}
+      onGalleryClick={()=> this.goto('deckgallery')}
+      onAddClick={()=> this.goto('createdeck')}
+      onSubmitModified={(card_id, question, answer)=>{
+        this.saveChanges(card_id, question, answer);
+
+        let modifiedCard = $.ajax({
+          url: 'https://damp-cliffs-8775.herokuapp.com/deck/:card_id',
+          method: 'PUT'
+
+        });
+      }}/>
+    );
+  },
+
+  saveUpdatedCard(id, question, answer) {
+    this.cardcollect.get(id).save({
+      card_id: id,
+      question: question,
+      answer: answer
+    }).then(() => {
+      alert('Your card has been updated');
+      this.goto('deckgallery');
+    });
   }
       
 
