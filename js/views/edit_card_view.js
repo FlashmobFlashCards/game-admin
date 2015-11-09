@@ -57,13 +57,12 @@ export default React.createClass({
   render() {
       return (
         <div className='editContainer'>
-          <div className="btns">
-            <button onClick={() => this.goEditDeckView}>Edit Deck</button> 
-            <button onClick={() => this.goDeckGalleryView}>Deck Gallery</button> 
-            <button onClick={() => this.goAddView}>Add Deck</button> 
-          </div>
-          <div className="edit-card">
             <h2>Edit Card</h2>
+          <div className="btns"> 
+            <button onClick={this.goDeckGalleryView}>Deck Gallery</button> 
+          </div>
+            <hr/>
+          <div className="edit-card">
             <form>
               <label>Deck Id: <input onChange={this.setId} type='text' className='deckId' value={this.state.card_id}/></label>
               <label>Card Question: <input onChange={this.updateQuestion} type="text" className="question" value={this.state.question}/></label>

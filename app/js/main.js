@@ -474,17 +474,20 @@ exports['default'] = _backbone2['default'].Router.extend({
       _this8.render(_react2['default'].createElement(_views.EditCardView, {
         id: cardId,
         data: cardData,
+        onGalleryClick: function () {
+          return _this8.goto('deckgallery');
+        },
         onSubmitModified: function (cardId, question, answer) {
           var modifiedCard = _jquery2['default'].ajax({
             url: 'https://damp-cliffs-8775.herokuapp.com/card/' + cardId,
             method: 'PUT',
             data: {
-              Question: question,
-              Answer: answer
+              question: question,
+              answer: answer
             }
           });
 
-          modifiedCard.then(function () {
+          modifiedCard.then(function (data) {
             _this8.setHeaders();
             _this8.goto('deckgallery');
           });
@@ -865,44 +868,27 @@ exports['default'] = _react2['default'].createClass({
   },
 
   render: function render() {
-    var _this = this;
-
     return _react2['default'].createElement(
       'div',
       { className: 'editContainer' },
+      _react2['default'].createElement(
+        'h2',
+        null,
+        'Edit Card'
+      ),
       _react2['default'].createElement(
         'div',
         { className: 'btns' },
         _react2['default'].createElement(
           'button',
-          { onClick: function () {
-              return _this.goEditDeckView;
-            } },
-          'Edit Deck'
-        ),
-        _react2['default'].createElement(
-          'button',
-          { onClick: function () {
-              return _this.goDeckGalleryView;
-            } },
+          { onClick: this.goDeckGalleryView },
           'Deck Gallery'
-        ),
-        _react2['default'].createElement(
-          'button',
-          { onClick: function () {
-              return _this.goAddView;
-            } },
-          'Add Deck'
         )
       ),
+      _react2['default'].createElement('hr', null),
       _react2['default'].createElement(
         'div',
         { className: 'edit-card' },
-        _react2['default'].createElement(
-          'h2',
-          null,
-          'Edit Card'
-        ),
         _react2['default'].createElement(
           'form',
           null,
