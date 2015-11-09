@@ -528,6 +528,9 @@ exports['default'] = _backbone2['default'].Router.extend({
         onAddClickHandler: function () {
           return _this10.goto('createcard');
         },
+        onGoBackEditDeck: function () {
+          return _this10.goto('editdeck');
+        },
         deckId: deckId,
         editCardClick: function (id) {
           return _this10.goto('editcard/' + deckId + '/' + id);
@@ -574,6 +577,10 @@ exports['default'] = _react2['default'].createClass({
     this.props.onAddClickHandler();
   },
 
+  goBackToDeck: function goBackToDeck() {
+    this.props.onGoBackEditDeck();
+  },
+
   render: function render() {
     return _react2['default'].createElement(
       'div',
@@ -582,6 +589,11 @@ exports['default'] = _react2['default'].createClass({
         'h2',
         null,
         'Click on a card to edit'
+      ),
+      _react2['default'].createElement(
+        'button',
+        { onClick: this.goBackToDeck, className: 'cardGalleryBack' },
+        'Go Back'
       ),
       _react2['default'].createElement(
         'ul',

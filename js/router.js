@@ -312,6 +312,7 @@ export default Backbone.Router.extend({
         <CardGalleryView
           cards={fullDeck}
           onAddClickHandler={() => this.goto('createcard')}
+          onGoBackEditDeck={() => this.goto('editdeck')}
           deckId={deckId}
           editCardClick={(id) => this.goto(`editcard/${deckId}/${id}`)}/>
       )
