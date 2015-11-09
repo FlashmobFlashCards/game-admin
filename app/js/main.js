@@ -475,7 +475,7 @@ exports['default'] = _backbone2['default'].Router.extend({
         id: cardId,
         data: cardData,
         onGalleryClick: function () {
-          return _this8.goto('deckgallery');
+          return _this8.goto('editdeck');
         },
         onSubmitModified: function (cardId, question, answer) {
           var modifiedCard = _jquery2['default'].ajax({
@@ -584,14 +584,15 @@ exports['default'] = _react2['default'].createClass({
         'Click on a card to edit'
       ),
       _react2['default'].createElement(
-        'ul',
-        { className: 'cardGallery' },
-        this.props.cards.map(this.processCards)
-      ),
-      _react2['default'].createElement(
         'div',
         { onClick: this.addClickBtn, className: 'addClickBtn' },
         _react2['default'].createElement('i', { className: 'fa fa-plus-square-o' })
+      ),
+      _react2['default'].createElement('hr', null),
+      _react2['default'].createElement(
+        'ul',
+        { className: 'cardGallery' },
+        this.props.cards.map(this.processCards)
       )
     );
   }
