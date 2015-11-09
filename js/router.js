@@ -29,7 +29,7 @@ export default Backbone.Router.extend({
     "logout" : "logout",
     "deckgallery" : "viewDecks",
     "createdeck" : "newDeck",
-    "createcard" : "newCard",
+    "createcard/:deck_id" : "newCard",
     "editdeck" : "editUserDeck",
     "editdeck/:deck_id" : "cardGallery",
     "editcard/:deckid/:card_id" : "updateCard",
@@ -206,16 +206,13 @@ export default Backbone.Router.extend({
       <CreateDeck
       onGoBackClick={() => this.goto('deckgallery')}
       onSubmitNewDeck={()=>{
-        console.log('submitting?');
         let deckTitle = document.querySelector('.deckTitleField').value;
-        let deckDescription = document.querySelector('.deckDescripField').value;
 
         let newDeck = $.ajax({
           url: 'https://damp-cliffs-8775.herokuapp.com/deck',
           method: 'POST',
           data: {
             title: deckTitle,
-            description: deckDescription
           }
         });
 
@@ -227,6 +224,7 @@ export default Backbone.Router.extend({
 
   newCard(deck_id) {
     this.setHeaders();
+    console.log(deck_id);
     this.render(
       <CreateCard
       onSubmitNewCard={()=>{
@@ -234,9 +232,10 @@ export default Backbone.Router.extend({
         let cardAnswer = document.querySelector('.answerField').value;
 
         let newCard = $.ajax({
-          url: 'https://damp-cliffs-8775.herokuapp.com/deck/${deck_id}/card',
+          url: `https://damp-cliffs-8775.herokuapp.com/deck/${deck_id}/card`,
           method: 'POST',
           data: {
+            deck_id: deck_id,
             question: cardQuestion,
             answer: cardAnswer
           }
@@ -270,8 +269,8 @@ export default Backbone.Router.extend({
               url: `https://damp-cliffs-8775.herokuapp.com/card/${cardId}`,
               method: 'PUT',
               data: {
-                question: question,
-                answer: answer
+                Question: question,
+                Answer: answer
               }
             });
 
@@ -297,7 +296,6 @@ export default Backbone.Router.extend({
   },
 
   cardGallery(deck_id) {
-    console.log(deck_id)
     this.setHeaders();
     let request = $.ajax({
       url: `https://damp-cliffs-8775.herokuapp.com/deck/${deck_id}/card`,
@@ -310,7 +308,7 @@ export default Backbone.Router.extend({
       this.render(
         <CardGalleryView
           cards={fullDeck}
-          onAddClickHandler={() => this.goto('createcard')}
+          onAddClickHandler={() => this.goto(`createcard/${deckId}`)}
           deckId={deckId}
           editCardClick={(id) => this.goto(`editcard/${deckId}/${id}`)}/>
       )

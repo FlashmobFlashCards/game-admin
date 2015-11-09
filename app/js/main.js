@@ -219,7 +219,7 @@ exports['default'] = _backbone2['default'].Router.extend({
     "logout": "logout",
     "deckgallery": "viewDecks",
     "createdeck": "newDeck",
-    "createcard": "newCard",
+    "createcard/:deck_id": "newCard",
     "editdeck": "editUserDeck",
     "editdeck/:deck_id": "cardGallery",
     "editcard/:deckid/:card_id": "updateCard",
@@ -415,16 +415,13 @@ exports['default'] = _backbone2['default'].Router.extend({
         return _this6.goto('deckgallery');
       },
       onSubmitNewDeck: function () {
-        console.log('submitting?');
         var deckTitle = document.querySelector('.deckTitleField').value;
-        var deckDescription = document.querySelector('.deckDescripField').value;
 
         var newDeck = _jquery2['default'].ajax({
           url: 'https://damp-cliffs-8775.herokuapp.com/deck',
           method: 'POST',
           data: {
-            title: deckTitle,
-            description: deckDescription
+            title: deckTitle
           }
         });
 
@@ -438,15 +435,17 @@ exports['default'] = _backbone2['default'].Router.extend({
     var _this7 = this;
 
     this.setHeaders();
+    console.log(deck_id);
     this.render(_react2['default'].createElement(_views.CreateCard, {
       onSubmitNewCard: function () {
         var cardQuestion = document.querySelector('.questionField').value;
         var cardAnswer = document.querySelector('.answerField').value;
 
         var newCard = _jquery2['default'].ajax({
-          url: 'https://damp-cliffs-8775.herokuapp.com/deck/${deck_id}/card',
+          url: 'https://damp-cliffs-8775.herokuapp.com/deck/' + deck_id + '/card',
           method: 'POST',
           data: {
+            deck_id: deck_id,
             question: cardQuestion,
             answer: cardAnswer
           }
@@ -480,8 +479,8 @@ exports['default'] = _backbone2['default'].Router.extend({
             url: 'https://damp-cliffs-8775.herokuapp.com/card/' + cardId,
             method: 'PUT',
             data: {
-              question: question,
-              answer: answer
+              Question: question,
+              Answer: answer
             }
           });
 
@@ -512,7 +511,6 @@ exports['default'] = _backbone2['default'].Router.extend({
   cardGallery: function cardGallery(deck_id) {
     var _this10 = this;
 
-    console.log(deck_id);
     this.setHeaders();
     var request = _jquery2['default'].ajax({
       url: 'https://damp-cliffs-8775.herokuapp.com/deck/' + deck_id + '/card',
@@ -525,7 +523,7 @@ exports['default'] = _backbone2['default'].Router.extend({
       _this10.render(_react2['default'].createElement(_views.CardGalleryView, {
         cards: fullDeck,
         onAddClickHandler: function () {
-          return _this10.goto('createcard');
+          return _this10.goto('createcard/' + deckId);
         },
         deckId: deckId,
         editCardClick: function (id) {
@@ -618,12 +616,12 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 exports['default'] = _react2['default'].createClass({
   displayName: 'create_card',
 
-  createCardSubmit: function createCardSubmit(deck_id) {
-    this.props.onSubmitNewCard(this.state.deck_id);
+  createCardSubmit: function createCardSubmit(event) {
+    event.preventDefault();
+    this.props.onSubmitNewCard();
   },
 
   render: function render() {
-    console.log(this);
     return _react2['default'].createElement(
       'form',
       { className: 'form' },
