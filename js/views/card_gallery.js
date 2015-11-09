@@ -29,6 +29,8 @@ export default React.createClass({
         <div onClick={this.addClickBtn} className='addClickBtn'>
           <i className="fa fa-plus-square-o"></i>
         </div>
+        <hr/>
+        <ul className='cardGallery'>{this.props.cards.map(this.processCards)}</ul>
       </div>
     );
   }

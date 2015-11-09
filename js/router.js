@@ -264,7 +264,7 @@ export default Backbone.Router.extend({
         <EditCardView
           id={cardId}
           data={cardData}
-          onGalleryClick={() => this.goto('deckgallery')}
+          onGalleryClick={() => this.goto('editdeck')}
           onSubmitModified={(cardId, question, answer) => {
             let modifiedCard = $.ajax({
               url: `https://damp-cliffs-8775.herokuapp.com/card/${cardId}`,
