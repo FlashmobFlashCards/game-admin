@@ -522,22 +522,17 @@ exports['default'] = _backbone2['default'].Router.extend({
     request.then(function (deck) {
       _jsCookie2['default'].set('spdeck', { deck_id: deck_id });
       var fullDeck = deck.cards;
-<<<<<<< HEAD
-      console.log(fullDeck);
-=======
->>>>>>> master
       var deckId = deck_id;
       _this10.render(_react2['default'].createElement(_views.CardGalleryView, {
         cards: fullDeck,
         onAddClickHandler: function () {
-<<<<<<< HEAD
           return _this10.goto('createcard');
         },
         onGoBackEditDeck: function () {
           return _this10.goto('editdeck');
-=======
+        },
+        onAddClickHandler: function () {
           return _this10.goto('createcard/' + deckId);
->>>>>>> master
         },
         deckId: deckId,
         editCardClick: function (id) {
