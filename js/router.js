@@ -227,6 +227,7 @@ export default Backbone.Router.extend({
     console.log(deck_id);
     this.render(
       <CreateCard
+      cancelNewCard={() => this.goto('editdeck')}
       onSubmitNewCard={()=>{
         let cardQuestion = document.querySelector('.questionField').value;
         let cardAnswer = document.querySelector('.answerField').value;

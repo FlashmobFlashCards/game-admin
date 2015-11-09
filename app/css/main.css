@@ -2034,6 +2034,9 @@ body {
     clear: both;
     content: "";
     display: table; }
+  body h2 {
+    color: #3E3E3E;
+    font-size: 2em; }
   body .gameLogo {
     float: left;
     display: block;
@@ -2183,20 +2186,158 @@ body {
     width: 40%; }
     body .orangerex:last-child {
       margin-right: 0; }
-
-.decks {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 74.41059%;
-  list-style: none;
-  display: inline-block;
-  padding: 30px;
-  border: 1px solid black;
-  width: 150px;
-  height: 150px;
-  margin-top: 20px; }
-  .decks:last-child {
-    margin-right: 0; }
+  body .deckBtns {
+    margin-left: 2px;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    color: #fff; }
+  body .editBtn {
+    background: #FF0065; }
+  body .editBtn:hover {
+    background: #FF86A6; }
+  body .addBtn {
+    background: #FF7F00; }
+  body .addBtn:hover {
+    background: #FF6900; }
+  body .logOutdeck {
+    float: right;
+    background: #00CEA7; }
+  body .logOutdeck:hover {
+    background: #00E9BA; }
+  body ul.gallery {
+    margin-left: 7%; }
+    body ul.gallery .decks {
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 82.94039%;
+      color: #3E3E3E;
+      list-style: none;
+      display: inline-block;
+      padding: 30px;
+      border: 7px solid white;
+      border-radius: 9px;
+      width: 150px;
+      height: 190px;
+      margin-top: 20px;
+      text-align: center;
+      background: #00CEA7;
+      cursor: pointer; }
+      body ul.gallery .decks:last-child {
+        margin-right: 0; }
+    body ul.gallery .decks:hover {
+      background: #FF7F00;
+      color: #fff;
+      border: 7px solid #00CEA7; }
+  body .userBtns {
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    color: #fff;
+    margin-right: 3px; }
+  body .new-card {
+    background: #FF0065; }
+  body .new-card:hover {
+    background: #FF86A6; }
+  body .back-btn {
+    background: #00CEA7; }
+  body .back-btn:hover {
+    background: #00E9BA; }
+  body .deckview-decks {
+    margin-left: 7%; }
+    body .deckview-decks .decks {
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 82.94039%;
+      list-style: none;
+      display: inline-block;
+      padding: 30px;
+      border: 7px solid white;
+      border-radius: 9px;
+      width: 150px;
+      height: 190px;
+      margin-top: 20px;
+      text-align: center;
+      background: #FF86A6; }
+      body .deckview-decks .decks:last-child {
+        margin-right: 0; }
+    body .deckview-decks .decks:hover {
+      background: #FF0065;
+      color: #fff;
+      border: 7px solid #00CEA7; }
+  body .deckGalleryBtn {
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    background: #FF0065;
+    color: #fff; }
+  body .deckGalleryBtn:hover {
+    background: #FF86A6;
+    color: #3E3E3E; }
+  body .totoro {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 48.82117%;
+    width: 41%; }
+    body .totoro:last-child {
+      margin-right: 0; }
+  body .edit-card {
+    margin-top: 8%; }
+    body .edit-card .label {
+      color: #3E3E3E; }
+    body .edit-card .cardEdit-field {
+      display: block;
+      width: 38%;
+      height: 38px;
+      border: none;
+      border-radius: 3px;
+      margin-bottom: 11px; }
+    body .edit-card .editcardBtn {
+      width: 16%;
+      height: 38px;
+      border: none;
+      border-radius: 3px;
+      background: #FF7F00;
+      color: #fff; }
+    body .edit-card .editcardBtn:hover {
+      background: #FF6900; }
+  body .createCardh2 {
+    margin: 10% 0 0 35%; }
+  body .createCardForm {
+    border: 10px solid #fff;
+    width: 40%;
+    height: 500px;
+    margin: 1% 0 0 28%;
+    border-radius: 15px;
+    background: #FF7F00; }
+    body .createCardForm .first-field {
+      margin-top: 30%; }
+    body .createCardForm .newCardField {
+      display: block;
+      margin-left: 15%;
+      width: 70%;
+      height: 41px;
+      border: 1px solid #FF0065;
+      border-radius: 3px;
+      margin-bottom: 30px; }
+    body .createCardForm .cardSubmit,
+    body .createCardForm .cardCancel {
+      width: 40%;
+      margin: 13% 0 0 30%;
+      color: #3E3E3E; }
+    body .createCardForm .cardSubmit {
+      background: #00CEA7; }
+    body .createCardForm .cardSubmit:hover {
+      background: #00E9BA;
+      color: #fff; }
+    body .createCardForm .cardCancel {
+      margin-top: 2%;
+      background: #FF86A6; }
+    body .createCardForm .cardCancel:hover {
+      background: #838685;
+      color: #fff; }
 
 /*# sourceMappingURL=main.css.map */

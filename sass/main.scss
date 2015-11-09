@@ -19,6 +19,11 @@ body {
   font-family: 'Droid Sans', sans-serif;
   @include outer-container;
 
+    h2 {
+    color: $greyBalticSea;
+    font-size: 2em;
+  }
+
 //////// The Home Page with the log in and sign up container //////////
 
   .gameLogo {
@@ -206,17 +211,226 @@ body {
     display: inline;
     width: 40%;
   }
-}
+
 
 //////////////// Deck Gallery ///////////////////
 
-.decks {
-  @include span-columns(9);
-  list-style: none;
-  display: inline-block;
-  padding: 30px;
-  border: 1px solid black;
-  width: 150px;
-  height: 150px;
-  margin-top: 20px;
+  .deckBtns {
+    margin-left: 2px;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    color: #fff;
+  }
+
+  .editBtn {
+    background: $fuschiaFolly;
+  }
+
+  .editBtn:hover {
+    background: $pinkTickle;
+  }
+
+  .addBtn {
+    background: $orangeFlush;
+  }
+
+  .addBtn:hover {
+    background: $orangeSafety;
+  }
+
+  .logOutdeck {
+    float: right;
+    background: $greenOcean;
+  }
+
+  .logOutdeck:hover {
+    background: $greenCarribean;
+  }
+
+  ul.gallery {
+    margin-left: 7%;
+
+    .decks {
+      @include span-columns(10);
+      color: $greyBalticSea;
+      list-style: none;
+      display: inline-block;
+      padding: 30px;
+      border: 7px solid white;
+      border-radius: 9px;
+      width: 150px;
+      height: 190px;
+      margin-top: 20px;
+      text-align: center;
+      background: $greenOcean;
+      cursor: pointer;
+    }
+
+    .decks:hover {
+      background: $orangeFlush;
+      color: #fff;
+      border: 7px solid $greenOcean;
+    }
+  }
+
+/////////////// User_deck View //////////////////
+  
+  .userBtns {
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    color: #fff;
+    margin-right: 3px;
+}
+    .new-card {
+      background: $fuschiaFolly;
+    }
+
+    .new-card:hover {
+      background: $pinkTickle;
+    }
+
+    .back-btn {
+      background: $greenOcean;
+    }
+
+    .back-btn:hover {
+      background: $greenCarribean;
+    }
+
+  .deckview-decks {
+    margin-left: 7%;
+
+    .decks {
+      @include span-columns(10);
+      list-style: none;
+      display: inline-block;
+      padding: 30px;
+      border: 7px solid white;
+      border-radius: 9px;
+      width: 150px;
+      height: 190px;
+      margin-top: 20px;
+      text-align: center;
+      background: $pinkTickle;
+    }
+
+    .decks:hover {
+      background: $fuschiaFolly;
+      color: #fff;
+      border: 7px solid $greenOcean;
+    }
+  }
+  
+////////////// Edit Card View //////////////////
+  
+  .deckGalleryBtn {
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    background: $fuschiaFolly;
+    color: #fff;
+  }
+
+  .deckGalleryBtn:hover {
+    background: $pinkTickle;
+    color: $greyBalticSea;
+  }
+
+  .totoro {
+    @include span-columns(6)
+    width: 41%;
+  }
+
+  .edit-card {
+    margin-top: 8%;
+
+    .label {
+      color: $greyBalticSea;
+    }
+    .cardEdit-field {
+      display: block;
+      width: 38%;
+      height: 38px;
+      border: none;
+      border-radius: 3px;
+      margin-bottom: 11px;
+    }
+
+    .editcardBtn {
+      width: 16%;
+      height: 38px;
+      border: none;
+      border-radius: 3px;
+      background: $orangeFlush;
+      color: #fff;
+    }
+
+    .editcardBtn:hover {
+      background: $orangeSafety;
+    }
+  }
+
+///////////////// Creat Card View /////////////////
+  
+  .createCardh2 {
+    margin: 10% 0 0 35%;
+  }
+
+  .createCardForm {
+    border: 10px solid #fff;
+    width: 40%;
+    height: 500px;
+    margin: 1% 0 0 28%;
+    border-radius: 15px;
+    background: $orangeFlush;
+
+    .first-field {
+      margin-top: 30%;
+    }
+
+    .newCardField {
+      display: block;
+      margin-left: 15%;
+      width: 70%;
+      height: 41px;
+      border: 1px solid $fuschiaFolly;
+      border-radius: 3px;
+      margin-bottom: 30px;
+    }
+
+    .cardSubmit,
+    .cardCancel {
+      width: 40%;
+      margin: 13% 0 0 30%;
+      color: $greyBalticSea;
+    }
+    .cardSubmit {
+      background: $greenOcean;
+    }
+
+    .cardSubmit:hover {
+      background: $greenCarribean;
+      color: #fff;
+    }
+
+    .cardCancel {
+      margin-top: 2%;
+      background: $pinkTickle;
+    }
+
+    .cardCancel:hover {
+      background: $greyGunsmoke;
+      color: #fff;
+    }
+  }
+
+
+
+
+
+
+
+
 }

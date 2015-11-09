@@ -20,10 +20,9 @@ export default React.createClass({
 		return (
 			<div className="user-decks">
 				<h2>Choose a Deck to Edit</h2>
-				<button onClick={this.goBack} className="back-btn">Back</button>
-				<button className="new-card">Add Card to Deck</button>
+				<button onClick={this.goBack} className="userBtns back-btn">Back</button>
 				<hr/>
-				<ul>{this.props.decks.map(this.getUserDecks)}</ul>
+				<ul className='deckview-decks'>{this.props.decks.map(this.getUserDecks)}</ul>
 			</div>
 		);
 	}

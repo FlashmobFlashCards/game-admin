@@ -437,6 +437,9 @@ exports['default'] = _backbone2['default'].Router.extend({
     this.setHeaders();
     console.log(deck_id);
     this.render(_react2['default'].createElement(_views.CreateCard, {
+      cancelNewCard: function () {
+        return _this7.goto('editdeck');
+      },
       onSubmitNewCard: function () {
         var cardQuestion = document.querySelector('.questionField').value;
         var cardAnswer = document.querySelector('.answerField').value;
@@ -639,16 +642,34 @@ exports['default'] = _react2['default'].createClass({
     this.props.onSubmitNewCard();
   },
 
+  cancelCardClick: function cancelCardClick() {
+    this.props.cancelNewCard();
+  },
+
   render: function render() {
     return _react2['default'].createElement(
-      'form',
-      { className: 'form' },
-      _react2['default'].createElement('input', { type: 'text', placeholder: 'Enter a question', className: 'newCardField questionField' }),
-      _react2['default'].createElement('input', { type: 'text', placeholder: 'Enter the answer', className: 'newCardField answerField' }),
+      'div',
+      null,
       _react2['default'].createElement(
-        'button',
-        { onClick: this.createCardSubmit, className: 'newCardField cardSubmit' },
-        'Create Card'
+        'h2',
+        { className: 'createCardh2' },
+        'Create a New Card'
+      ),
+      _react2['default'].createElement(
+        'form',
+        { className: 'createCardForm' },
+        _react2['default'].createElement('input', { type: 'text', placeholder: 'Enter a question', className: 'newCardField first-field questionField' }),
+        _react2['default'].createElement('input', { type: 'text', placeholder: 'Enter the answer', className: 'newCardField answerField' }),
+        _react2['default'].createElement(
+          'button',
+          { onClick: this.createCardSubmit, className: 'newCardField cardSubmit' },
+          'Create Card'
+        ),
+        _react2['default'].createElement(
+          'button',
+          { onClick: this.cancelCardClick, className: 'newCardField cardCancel' },
+          'Cancel'
+        )
       )
     );
   }
@@ -782,18 +803,18 @@ exports['default'] = _react2['default'].createClass({
         _react2['default'].createElement('div', { className: 'userScore' }),
         _react2['default'].createElement(
           'button',
-          { onClick: this.onLogout },
-          'Log Out'
-        ),
-        _react2['default'].createElement(
-          'button',
-          { onClick: this.onEditClick, className: 'editBtn' },
+          { onClick: this.onEditClick, className: 'deckBtns editBtn' },
           'Edit a Deck'
         ),
         _react2['default'].createElement(
           'button',
-          { onClick: this.onAddClick, className: 'addBtn' },
+          { onClick: this.onAddClick, className: 'deckBtns addBtn' },
           'Add a Deck'
+        ),
+        _react2['default'].createElement(
+          'button',
+          { onClick: this.onLogout, className: 'deckBtns logOutdeck' },
+          'Log Out'
         ),
         _react2['default'].createElement('hr', null)
       ),
@@ -888,11 +909,12 @@ exports['default'] = _react2['default'].createClass({
         { className: 'btns' },
         _react2['default'].createElement(
           'button',
-          { onClick: this.goDeckGalleryView },
+          { onClick: this.goDeckGalleryView, className: 'deckGalleryBtn' },
           'Deck Gallery'
         )
       ),
       _react2['default'].createElement('hr', null),
+      _react2['default'].createElement('img', { src: 'images/totoro.png', className: 'totoro' }),
       _react2['default'].createElement(
         'div',
         { className: 'edit-card' },
@@ -901,25 +923,25 @@ exports['default'] = _react2['default'].createClass({
           null,
           _react2['default'].createElement(
             'label',
-            null,
+            { className: 'label' },
             'Deck Id: ',
-            _react2['default'].createElement('input', { onChange: this.setId, type: 'text', className: 'deckId', value: this.state.card_id })
+            _react2['default'].createElement('input', { onChange: this.setId, type: 'text', className: 'cardEdit-field deckId', value: this.state.card_id })
           ),
           _react2['default'].createElement(
             'label',
-            null,
+            { className: 'label' },
             'Card Question: ',
-            _react2['default'].createElement('input', { onChange: this.updateQuestion, type: 'text', className: 'question', value: this.state.question })
+            _react2['default'].createElement('input', { onChange: this.updateQuestion, type: 'text', className: 'cardEdit-field question', value: this.state.question })
           ),
           _react2['default'].createElement(
             'label',
-            null,
+            { className: 'label' },
             'Card Answer: ',
-            _react2['default'].createElement('input', { onChange: this.updateAnswer, type: 'text', className: 'answer', value: this.state.answer })
+            _react2['default'].createElement('input', { onChange: this.updateAnswer, type: 'text', className: 'cardEdit-field answer', value: this.state.answer })
           ),
           _react2['default'].createElement(
             'button',
-            { onClick: this.saveChanges },
+            { onClick: this.saveChanges, className: 'editcardBtn' },
             'Save Changes'
           )
         )
@@ -1247,18 +1269,13 @@ exports["default"] = _react2["default"].createClass({
 			),
 			_react2["default"].createElement(
 				"button",
-				{ onClick: this.goBack, className: "back-btn" },
+				{ onClick: this.goBack, className: "userBtns back-btn" },
 				"Back"
-			),
-			_react2["default"].createElement(
-				"button",
-				{ className: "new-card" },
-				"Add Card to Deck"
 			),
 			_react2["default"].createElement("hr", null),
 			_react2["default"].createElement(
 				"ul",
-				null,
+				{ className: "deckview-decks" },
 				this.props.decks.map(this.getUserDecks)
 			)
 		);

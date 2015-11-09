@@ -32,9 +32,9 @@ export default React.createClass({
         <header>
           <h2>Welcome</h2>
           <div className="userScore"></div>
-          <button onClick={this.onLogout}>Log Out</button>
-          <button onClick={this.onEditClick} className='editBtn'>Edit a Deck</button>
-          <button onClick={this.onAddClick} className='addBtn'>Add a Deck</button>
+          <button onClick={this.onEditClick} className='deckBtns editBtn'>Edit a Deck</button>
+          <button onClick={this.onAddClick} className='deckBtns addBtn'>Add a Deck</button>
+          <button onClick={this.onLogout} className='deckBtns logOutdeck'>Log Out</button>
           <hr/>
         </header>
         <main>
