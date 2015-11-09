@@ -42,16 +42,8 @@ export default React.createClass({
     );
   },
 
-  goEditDeckView() {
-    this.props.onEditClick();
-  },
-
   goDeckGalleryView() {
     this.props.onGalleryClick();
-  },
-
-  goAddView() {
-    this.props.onAddClick();
   },
 
   render() {

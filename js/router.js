@@ -275,7 +275,7 @@ export default Backbone.Router.extend({
               }
             });
 
-            modifiedCard.then((data) => {
+            modifiedCard.then(() => {
               this.setHeaders();
               this.goto('deckgallery');
           });}}/>

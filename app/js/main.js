@@ -487,7 +487,7 @@ exports['default'] = _backbone2['default'].Router.extend({
             }
           });
 
-          modifiedCard.then(function (data) {
+          modifiedCard.then(function () {
             _this8.setHeaders();
             _this8.goto('deckgallery');
           });
@@ -855,16 +855,8 @@ exports['default'] = _react2['default'].createClass({
     this.props.onSubmitModified(this.state.card_id, this.state.question, this.state.answer);
   },
 
-  goEditDeckView: function goEditDeckView() {
-    this.props.onEditClick();
-  },
-
   goDeckGalleryView: function goDeckGalleryView() {
     this.props.onGalleryClick();
-  },
-
-  goAddView: function goAddView() {
-    this.props.onAddClick();
   },
 
   render: function render() {
