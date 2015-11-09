@@ -282,6 +282,7 @@ body {
     padding: 10px;
     color: #fff;
     margin-right: 3px;
+    display: block;
 }
     .new-card {
       background: $fuschiaFolly;
@@ -426,15 +427,6 @@ body {
     }
   }
 
-
-
-
-
-
-
-
-}
-
 //////////////////// Card Gallery //////////////
 
 h2 {
@@ -490,4 +482,5 @@ h2 {
   .fa-plus-square-o:hover {
     background-color: $greenOcean;
   }
+}
 }
