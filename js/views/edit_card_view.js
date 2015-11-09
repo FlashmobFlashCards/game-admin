@@ -51,7 +51,7 @@ export default React.createClass({
         <div className='editContainer'>
             <h2>Edit Card</h2>
           <div className="btns"> 
-            <button onClick={this.goDeckGalleryView}>Deck Gallery</button> 
+            <button onClick={this.goDeckGalleryView}>Deck Gallery</button>
           </div>
             <hr/>
           <div className="edit-card">
