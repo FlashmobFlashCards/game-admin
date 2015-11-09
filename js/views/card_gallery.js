@@ -23,12 +23,14 @@ export default React.createClass({
   render() {
     return (
       <div>
+        <button onClick={this.goBackToDeck} className='cardGalleryBack'><i className="fa fa-angle-left"></i>
+</button>
         <h2>Click on a card to edit</h2>
-        <button onClick={this.goBackToDeck} className='cardGalleryBack'>Go Back</button>
-        <ul className='cardGallery'>{this.props.cards.map(this.processCards)}</ul>
         <div onClick={this.addClickBtn} className='addClickBtn'>
           <i className="fa fa-plus-square-o"></i>
         </div>
+        <hr/>
+        <ul className='cardGallery'>{this.props.cards.map(this.processCards)}</ul>
       </div>
     );
   }

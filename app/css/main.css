@@ -2340,4 +2340,53 @@ body {
       background: #838685;
       color: #fff; }
 
+h2 {
+  text-align: center;
+  display: inline-block;
+  padding: 5px; }
+
+.cardGalleryBack {
+  background: none;
+  border: none; }
+
+.fa-angle-left {
+  font-size: 25px;
+  margin-right: 350px; }
+
+.fa-angle-left:hover {
+  background-color: #FF7F00; }
+
+.eachCard {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 74.41059%;
+  list-style: none;
+  display: inline-block;
+  padding: 20px;
+  border: 1px solid #FF0065;
+  border-radius: 3px;
+  width: 175px;
+  height: 175px;
+  margin-top: 20px;
+  background-color: #FF86A6;
+  padding-top: 50px; }
+  .eachCard:last-child {
+    margin-right: 0; }
+
+.eachCard:hover {
+  cursor: pointer;
+  background-color: #ff9eb8; }
+
+.addClickBtn {
+  display: inline-block; }
+  .addClickBtn .fa-plus-square-o {
+    font-size: 25px;
+    display: inline-block;
+    padding: 5px;
+    margin-left: 15px;
+    text-align: right; }
+  .addClickBtn .fa-plus-square-o:hover {
+    background-color: #00CEA7; }
+
 /*# sourceMappingURL=main.css.map */

@@ -434,3 +434,60 @@ body {
 
 
 }
+
+//////////////////// Card Gallery //////////////
+
+h2 {
+  text-align: center;
+  display: inline-block;
+  padding: 5px;
+}
+
+.cardGalleryBack {
+  background: none;
+  border: none;
+}
+
+.fa-angle-left {
+  font-size: 25px;
+  margin-right: 350px;
+}
+
+.fa-angle-left:hover {
+  background-color: $orangeFlush;
+}
+
+.eachCard {
+  @include span-columns(9);
+  list-style: none;
+  display: inline-block;
+  padding: 20px;
+  border: 1px solid $fuschiaFolly;
+  border-radius: 3px;
+  width: 175px;
+  height: 175px;
+  margin-top: 20px;
+  background-color: $pinkTickle;
+  padding-top: 50px;
+}
+
+.eachCard:hover {
+  cursor: pointer;
+  background-color: #ff9eb8;
+}
+
+.addClickBtn {
+  display: inline-block;
+
+  .fa-plus-square-o {
+    font-size: 25px;
+    display: inline-block;
+    padding: 5px;
+    margin-left: 15px;
+    text-align: right;
+  }
+
+  .fa-plus-square-o:hover {
+    background-color: $greenOcean;
+  }
+}
