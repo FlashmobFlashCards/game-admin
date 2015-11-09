@@ -2108,37 +2108,38 @@ body {
     margin-top: 10%; }
     body .regForm h2 {
       text-align: center;
-      color: #3E3E3E; }
-  body .regField {
-    display: block;
-    float: left;
-    display: block;
-    margin-right: 2.35765%;
-    width: 48.82117%;
-    margin-left: 25.58941%;
-    height: 46px;
-    margin-top: 15px;
-    border: none;
-    border-radius: 3px; }
-    body .regField:last-child {
-      margin-right: 0; }
-  body .regBtn {
-    width: 22%;
-    margin: 2% 2% 0 27%;
-    padding: 8px;
-    border: none;
-    border-radius: 3px;
-    color: #fff;
-    background: #00CEA7; }
-  body .regBtn:hover {
-    background: #00E9BA; }
-  body .regBackBtn {
-    width: 22%;
-    margin: 2% 0 0 0;
-    background: #FF6900;
-    color: #fff; }
-  body .regBackBtn:hover {
-    background: #FF7F00; }
+      color: #3E3E3E;
+      margin-left: 37%; }
+    body .regForm .regField {
+      display: block;
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 48.82117%;
+      margin-left: 25.58941%;
+      height: 46px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 3px; }
+      body .regForm .regField:last-child {
+        margin-right: 0; }
+    body .regForm .regBtn {
+      width: 22%;
+      margin: 2% 0 0 27%;
+      padding: 8px;
+      border: none;
+      border-radius: 3px;
+      color: #fff;
+      background: #00CEA7; }
+    body .regForm .regBtn:hover {
+      background: #00E9BA; }
+    body .regForm .regBackBtn {
+      width: 22%;
+      margin: 2% 0 0 2%;
+      background: #FF6900;
+      color: #fff; }
+    body .regForm .regBackBtn:hover {
+      background: #FF7F00; }
   body .deckForm {
     float: left;
     display: block;
