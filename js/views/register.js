@@ -3,7 +3,6 @@ import React from 'react';
 export default React.createClass({
 
   createUser() {
-    console.log('this is clicked');
     this.props.onCreateUserClick();
   },
 

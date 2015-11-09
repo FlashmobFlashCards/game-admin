@@ -3,12 +3,12 @@ import ReactDom from 'react-dom';
 
 export default React.createClass({
 
-  createCardSubmit(deck_id) {
-    this.props.onSubmitNewCard(this.state.deck_id);
+  createCardSubmit(event) {
+    event.preventDefault();
+    this.props.onSubmitNewCard();
   },
 
   render() {
-    console.log(this);
     return (
         <form className='form'>
           <input type='text' placeholder='Enter a question' className='newCardField questionField' />
