@@ -2204,6 +2204,17 @@ h2 {
   display: inline-block;
   padding: 5px; }
 
+.cardGalleryBack {
+  background: none;
+  border: none; }
+
+.fa-angle-left {
+  font-size: 25px;
+  margin-right: 350px; }
+
+.fa-angle-left:hover {
+  background-color: #FF7F00; }
+
 .eachCard {
   float: left;
   display: block;

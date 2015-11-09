@@ -589,19 +589,14 @@ exports['default'] = _react2['default'].createClass({
       'div',
       null,
       _react2['default'].createElement(
+        'button',
+        { onClick: this.goBackToDeck, className: 'cardGalleryBack' },
+        _react2['default'].createElement('i', { className: 'fa fa-angle-left' })
+      ),
+      _react2['default'].createElement(
         'h2',
         null,
         'Click on a card to edit'
-      ),
-      _react2['default'].createElement(
-        'button',
-        { onClick: this.goBackToDeck, className: 'cardGalleryBack' },
-        'Go Back'
-      ),
-      _react2['default'].createElement(
-        'ul',
-        { className: 'cardGallery' },
-        this.props.cards.map(this.processCards)
       ),
       _react2['default'].createElement(
         'div',
